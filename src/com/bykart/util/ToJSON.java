@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
+import org.owasp.esapi.ESAPI;
 
 public class ToJSON {
 	
@@ -11,6 +12,7 @@ public class ToJSON {
 	
 	public JSONArray toJSONArray(ResultSet rs) throws Exception {
 		JSONArray json = new JSONArray(); //JSON array that will be returned
+		String temp = null;
 		
 		try {
 			//since we need the column name, this will save the table meta-data like column name.
@@ -62,8 +64,13 @@ public class ToJSON {
 						/*Debug*/ System.out.println("ToJson: NVARCHAR");
 					}
 					else if (rsmd.getColumnType(i)==java.sql.Types.VARCHAR){
-						obj.put(column_name, rs.getString(column_name));
-						/*Debug*/ System.out.println("ToJson: VARCHAR");
+						temp = rs.getString(column_name);
+						temp = ESAPI.encoder().canonicalize(temp);
+						temp = ESAPI.encoder().encodeForHTML(temp);
+						obj.put(column_name, temp);
+						
+						//obj.put(column_name, rs.getString(column_name));
+						///*Debug*/ System.out.println("ToJson: VARCHAR");
 					}
 					else if (rsmd.getColumnType(i)==java.sql.Types.TINYINT){
 						obj.put(column_name, rs.getInt(column_name));
