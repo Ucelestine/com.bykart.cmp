@@ -1,0 +1,36 @@
+package com.bykart.dao;
+
+import java.sql.DriverManager;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
+public class CmpPostgres {
+	
+	private static DriverManager CmpPostgres = null;
+	private static Context context = null;
+	
+	
+	public static DriverManager CmpPostgresConn() throws Exception {
+		Class.forName("org.postgresql.Driver");
+		if (CmpPostgres != null) {
+			return CmpPostgres;
+		}
+		
+		 try {
+			 
+			 if (context == null) {
+				 context = new InitialContext();
+			 }
+			 CmpPostgres = (DriverManager) context.lookup("CmpPostgres");
+		 }
+		 catch (Exception ex) {
+			 ex.printStackTrace();
+			 
+		 }
+		 return CmpPostgres;
+		 
+		
+	}
+
+}
