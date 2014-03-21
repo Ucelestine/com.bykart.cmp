@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONArray;
 
@@ -20,11 +21,12 @@ public class V1_messages {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String returnUserMessages() throws Exception {
+	public Response returnUserMessages() throws Exception {
 		
 		PreparedStatement query = null;
 		Connection conn = null;
 		String returnString = null;
+		Response rb = null;
 		int id = 1;
 		
 		try {
@@ -42,6 +44,7 @@ public class V1_messages {
 			query.close(); //close connection
 			
 			returnString = json.toString();
+			rb = Response.ok(returnString).build();
 			
 		}
 		catch (Exception ex) {
@@ -50,7 +53,7 @@ public class V1_messages {
 		finally {
 			if(conn != null) conn.close();
 		}
-		return returnString;
+		return rb;
 	}
 	
 
