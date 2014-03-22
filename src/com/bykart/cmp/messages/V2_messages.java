@@ -9,6 +9,8 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONArray;
 
+import com.bykart.dao.Schema_Cmp;
+
 
 @Path("/v2/messages")
 public class V2_messages {
@@ -16,12 +18,22 @@ public class V2_messages {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response messageThread(
-			@QueryParam("thread") String thread)
+			@QueryParam("userid") String userid)
 	throws Exception {
 		String returnString = null;
 		JSONArray json = new JSONArray();
 		
+		
 		try {
+			
+			if(userid==null || userid == "") {
+				return Response.status(400).entity("Error: Please enter a userid").build();
+			}
+			
+			Schema_Cmp dao = new Schema_Cmp();
+			
+			json = dao.queryReturnMessages(userid);
+			returnString = json.toString();
 			
 		}
 		catch (Exception ex) {

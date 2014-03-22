@@ -1,5 +1,6 @@
 package com.bykart.dao;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 
 import javax.naming.Context;
@@ -30,6 +31,20 @@ public class CmpPostgres {
 		 }
 		 return CmpPostgres;
 		 
+		
+	}
+	protected static Connection cmpMessagesConnection() {
+		Connection conn = null;
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Mobile", "postgres", "teamred");
+			return conn;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return conn;
+		
 		
 	}
 

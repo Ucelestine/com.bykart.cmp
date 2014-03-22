@@ -1,7 +1,6 @@
 package com.bykart.cmp.messages;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -17,7 +16,7 @@ import com.bykart.dao.CmpPostgres;
 import com.bykart.util.ToJSON;
 
 @Path("/v1/messages")
-public class V1_messages {
+public class V1_messages extends CmpPostgres {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -27,13 +26,13 @@ public class V1_messages {
 		Connection conn = null;
 		String returnString = null;
 		Response rb = null;
-		int id = 1;
+		//int id = 1;
 		
 		try {
 			
-			CmpPostgres.CmpPostgresConn();
-			conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Mobile", "postgres", "teamred");
-			query = conn.prepareStatement("SELECT * FROM messages WHERE id =" +id);
+			
+			conn = cmpMessagesConnection();
+			query = conn.prepareStatement("SELECT * FROM messages");
 			
 			ResultSet rs = query.executeQuery();
 			
