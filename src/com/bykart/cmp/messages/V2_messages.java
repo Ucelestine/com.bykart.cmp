@@ -59,13 +59,36 @@ public class V2_messages {
 		
 		try {
 			
-			/*if(userid==null || userid == "") {
-				return Response.status(400).entity("Error: Please enter a userid").build();
-			}*/
-			
 			Schema_Cmp dao = new Schema_Cmp();
 			
 			json = dao.queryReturnMessages(userid);
+			returnString = json.toString();
+			
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return Response.status(500).entity("Server was not able to process your requerst").build();
+		}
+		return Response.ok(returnString).build();
+	}
+	
+	
+	@Path("/{userid}/{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response specifc_message_byid(
+			@PathParam("userid") String userid,
+			@PathParam("id") int id)
+	throws Exception {
+		
+		String returnString = null;
+		JSONArray json = new JSONArray();
+		
+		try {
+						
+			Schema_Cmp dao = new Schema_Cmp();
+			
+			json = dao.queryReturnSpecMessages(userid, id);
 			returnString = json.toString();
 			
 		}

@@ -47,37 +47,28 @@ public class Schema_Cmp extends CmpPostgres {
 		return json;
 	}
 	
-	/*public boolean ValidateUser(boolean isValid, String userid) throws Exception {
+	
+ public JSONArray queryReturnSpecMessages(String userid, int id) throws Exception {
 		
 		PreparedStatement query = null;
 		Connection conn = null;
 		
-		String returnString = null;
 		ToJSON converter = new ToJSON();
 		JSONArray json = new JSONArray();
-		boolean valid = false;
 		
 		try {
 			CmpPostgres.CmpPostgresConn();
 			conn = cmpMessagesConnection();
-			query = conn.prepareStatement("SELECT id, username, firstname, lastname" +
-											" FROM user" +
-											" WHERE UPPER(user_id) = ? " );
+			query = conn.prepareStatement("SELECT id, user_id, message_body, thread_id, priority_id, recieved_date, sender_id, flag_id, message_status_id " +
+											" FROM messages" +
+											" WHERE UPPER(user_id) = ?" +
+											" AND id = ? ");
 			
 			query.setString(1, userid.toUpperCase());
+			query.setInt(2, id);
 			ResultSet rs = query.executeQuery();
 			
-			if(rs == null)
-				return valid;
-			else
-			{
-				valid = true;
-				json = queryReturnMessages(userid);
-				returnString = json.toString();
-				
-			}
-			
-			
+			json = converter.toJSONArray(rs);
 			query.close(); //close connection
 		}
 		catch (SQLException sqlError) {
@@ -92,6 +83,7 @@ public class Schema_Cmp extends CmpPostgres {
 			if (conn != null) conn.close();
 		}
 		return json;
-	}*/
+	}
+
 
 }
