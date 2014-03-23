@@ -4,13 +4,63 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import org.codehaus.jettison.json.JSONArray;
 
 import com.bykart.util.ToJSON;
 
 
+
 public class Schema_Cmp extends CmpPostgres {
+	
+	public int insert_into_message(String user_id, String message_body, String thread_id, String priority_id, String recieved_date, String sender_id, boolean flag_id, boolean message_status_id) throws Exception {
+		
+		PreparedStatement query = null;
+		Connection conn = null;
+		
+		try {
+			
+			CmpPostgres.CmpPostgresConn();
+			conn = cmpMessagesConnection();
+			query = conn.prepareStatement("INSERT INTO messages " +
+									"(user_id, message_body, thread_id, priority_id, recieved_date, sender_id, flag_id, message_status_id)" +
+									"VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			
+			query.setString(1, user_id);
+			query.setString(2, message_body);
+			
+			int thrd_id = Integer.parseInt(thread_id);
+			query.setInt(3, thrd_id);
+			
+			int prty_id = Integer.parseInt(priority_id);
+			query.setInt(4, prty_id);
+			
+			Timestamp rd  = Timestamp.valueOf(recieved_date);
+			query.setTimestamp(5, rd);
+			query.setString(6, sender_id);
+			
+			boolean f_id = false;
+			query.setBoolean(2, f_id);
+			
+			boolean ms_id = false;
+			query.setBoolean(8, ms_id);
+			
+			query.executeUpdate();
+			
+		}
+		catch (SQLException sqlError) {
+			sqlError.printStackTrace();
+			return 500;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return 500;
+			
+		}
+		return 200;
+	}
+	
 	
 	public JSONArray queryReturnMessages(String userid) throws Exception {
 		
