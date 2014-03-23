@@ -46,5 +46,52 @@ public class Schema_Cmp extends CmpPostgres {
 		}
 		return json;
 	}
+	
+	/*public boolean ValidateUser(boolean isValid, String userid) throws Exception {
+		
+		PreparedStatement query = null;
+		Connection conn = null;
+		
+		String returnString = null;
+		ToJSON converter = new ToJSON();
+		JSONArray json = new JSONArray();
+		boolean valid = false;
+		
+		try {
+			CmpPostgres.CmpPostgresConn();
+			conn = cmpMessagesConnection();
+			query = conn.prepareStatement("SELECT id, username, firstname, lastname" +
+											" FROM user" +
+											" WHERE UPPER(user_id) = ? " );
+			
+			query.setString(1, userid.toUpperCase());
+			ResultSet rs = query.executeQuery();
+			
+			if(rs == null)
+				return valid;
+			else
+			{
+				valid = true;
+				json = queryReturnMessages(userid);
+				returnString = json.toString();
+				
+			}
+			
+			
+			query.close(); //close connection
+		}
+		catch (SQLException sqlError) {
+			sqlError.printStackTrace();
+			return json;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return json;
+		}
+		finally {
+			if (conn != null) conn.close();
+		}
+		return json;
+	}*/
 
 }
