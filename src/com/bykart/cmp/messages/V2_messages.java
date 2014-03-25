@@ -1,6 +1,8 @@
 package com.bykart.cmp.messages;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -8,6 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
 
 import com.bykart.dao.Schema_Cmp;
@@ -98,5 +101,53 @@ public class V2_messages {
 		}
 		return Response.ok(returnString).build();
 	}
+	
+	@POST
+	@Consumes({MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON})
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response add_messages(String incomingData) {
+		
+		String returnString = null;
+		JSONArray jsonArray = new JSONArray();
+		Schema_Cmp dao = new Schema_Cmp();
+		
+		try {
+			System.out.println("incomingData: " + incomingData);
+			ObjectMapper mapper = new ObjectMapper();
+			message_entry itemEntry = mapper.readValue(incomingData, message_entry.class);
+			
+			int http_code = dao.insert_into_message(itemEntry.user_id,
+													itemEntry.message_body,
+													itemEntry.thread_id, 
+													itemEntry.priority_id, 
+													itemEntry.recieved_date, 
+													itemEntry.sender_id, 
+													itemEntry.flag_id, 
+													itemEntry.message_status_id);
+			
+			if (http_code == 200) {
+				returnString = jsonArray.toString();
+			} else {
+				return Response.status(500).entity("Unable to process data").build();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return Response.status(500).entity("Server was unable to process your request").build();
+		}
+		return Response.ok(returnString).build();
+		
+	}
 
+}
+
+class message_entry {
+	public String user_id;
+	public String message_body;
+	public String thread_id;
+	public String priority_id;
+	public String recieved_date;
+	public String sender_id;
+	public String flag_id;
+	public String message_status_id;
 }

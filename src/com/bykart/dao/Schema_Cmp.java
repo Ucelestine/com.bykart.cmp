@@ -14,7 +14,15 @@ import com.bykart.util.ToJSON;
 
 public class Schema_Cmp extends CmpPostgres {
 	
-	public int insert_into_message(String user_id, String message_body, String thread_id, String priority_id, String recieved_date, String sender_id, boolean flag_id, boolean message_status_id) throws Exception {
+	public int insert_into_message(String user_id, 
+									String message_body, 
+									String thread_id, 
+									String priority_id, 
+									String recieved_date, 
+									String sender_id, 
+									String flag_id,  
+									String message_status_id)
+								throws Exception {
 		
 		PreparedStatement query = null;
 		Connection conn = null;
