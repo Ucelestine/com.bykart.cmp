@@ -93,6 +93,7 @@ $(document).ready(function() {
 				$(this).attr('data-theme', 'a');
 				update_msg(user, Id, stat, f_Id);
 			}
+			get_spec_message(user, Id);
 		});
 	
 });

@@ -198,7 +198,7 @@ function login(user) {
 						
 					 var result = data;
 					 if (result.length == 0) {
-						 alert("User id does not exit")
+						 alert("User id does not exit");
 					 }
 					 
 					 for (var i= 0; i < result.length; i++ ) {
@@ -317,7 +317,7 @@ function process_data(data) {
 		var msg_status = result[0].message_status_id;
 		var f_id = result[0].flag_id;
 		if(result[0].flag_id == true ) {
-			$("#flg_id").attr('data-theme', 'b');
+			$("#flg_id").attr('data-theme', 'e');
 			
 			htmlstr = htmlstr + '<h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
 								+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
