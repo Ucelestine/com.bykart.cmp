@@ -13,3 +13,5 @@ label.error {
 input.error, select.error, textarea.error {
 	border: 1px red solid;
 }
+
+section { color: gray;}
