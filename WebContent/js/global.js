@@ -82,15 +82,15 @@ $(document).ready(function() {
 			var stat = localStorage.getItem('status');
 			var f_Id = localStorage.getItem('flagId');
 			
-			if(f_Id == false) {
+			if(f_Id == "false") {
 				
 				f_Id = true;
-				this.Attr('data-theme', 'b');
+				$(this).attr('data-theme', 'b');
 				update_msg(user, Id, stat, f_Id);
 			}
 			else {
-				f_id = false;
-				this.Attr('data-theme', 'a');
+				f_Id = false;
+				$(this).attr('data-theme', 'a');
 				update_msg(user, Id, stat, f_Id);
 			}
 		});
