@@ -1,10 +1,217 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Conestoga Mobile Project</title>
-</head>
-<body>
-	Conestoga mobile Web App
-</body>
+	<head>
+	   	<meta charset="ISO-8859-1">
+        <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
+		<title>Conestoga Mobile Project</title>
+		<meta name="author" content="CELESTINE" />
+		<!-- Date: 2014-03-04 -->
+		<link href="css/themes/default/jquery.mobile-1.3.2.css" rel="stylesheet" type="text/css" />
+	    <link href="css/custom.css" rel="stylesheet" type="text/css" />
+			
+			<!-- JavaScript HTML requirements -->
+	    <script src="js/jquery.js" type="text/javascript"></script>
+	    <script src="js/jquery.mobile-1.3.2.min.js" type="text/javascript"></script>
+	    <script src="js/geo.js" type="text/javascript"></script>
+	    
+	    <script src="js/global.js" type="text/javascript"></script>
+	    <script src="js/postserial.js" type="text/javascript"></script>
+	    <!--<script src="js/post.js" type="text/javascript"></script>-->
+	    <script src="js/database.js" type="text/javascript"></script>
+	    <script src="js/util.js" type="text/javascript"></script>
+	</head>	
+	<body>
+		<div data-role="page" id="login">
+		 	<header data-role="header" data-position="fixed">
+		 		<h1>Conestoga Mobile Project App</h1>
+		 		<a href="#" data-icon="back" class="ui-btn-right" style="display: none" onclick="toggle(this)">Logout</a>
+		 	</header>
+		 	<section data-role="content">
+		 		<div align="center">
+		 			<h4>Bykart Messaging Application</h4>
+		 			<img src="images/icon.png" />
+		 		</div> 
+		 		<h4>Bykart Messaging Application</h4>
+		 		<form id="user" name="user" data-ajax="false" >
+		 			<div id="login_form">
+			 			<label for="userName">User Name:</label>
+			 			<input type="text" id="userName" name="userName" title="Please enter a valid user Name" />
+			 			<label for="passwrd" >PassWord:</label>
+			 			<input type="password" id="passwrd" name="passwrd" value="password" title="password is required"/>
+			 			<a href="#" data-role="button" id="btnlogin" data-theme="b" data-inline="false">Login</a>
+		 			</div>		 			
+		 		</form>
+		 		
+		 	</section>
+		 	<footer data-role="footer" data-position="fixed">
+		 		<h4>&copy; 2014</h4>		 		
+		 	</footer> 
+		 	
+		 </div>
+		 
+		 <div data-role="page" id="inbox">
+		 	<header data-role="header" data-position="fixed">
+		 		<h1>Inbox</h1>
+		 		<a href="#nav-panel" data-icon="bars" data-iconpos="notext" id="menu">Menu</a>
+		 		<a href="#login" data-role="button" class="ui-btn-right" data-icon="back">Logout</a>
+		 	</header>
+		 	
+		 	<section data-role="content">
+		 		<h2> Messages</h2>
+		 		<div data-role="collapsibleset" data-content-theme="a">
+				    <div data-role="collapsible" data-collapsed="false" data-theme="b">
+					    <h2>Today's Messages</h2>
+				        <ul data-role="listview" data-theme="e" data-divider-theme="e" id="today_msg">
+
+				        </ul>
+				    </div>
+				    <div data-role="collapsible" data-theme="b">
+					    <h2>Yesterday's Messages</h2>
+				        <ul data-role="listview" data-divider-theme="b" id="yesterday_msg">
+
+				        </ul>
+				    </div>
+			    </div>
+		    </section>
+		 	
+		 	<footer data-role="footer" data-position="fixed">
+		 		<h4>&copy; 2014</h4>		 		
+		 	</footer>
+		 	<div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="b" id="nav-panel">
+		 	    <ul data-role="listview" >
+		 	      	<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		            <li><a href="#inbox" data-rel="close">Inbox</a></li>
+		            <li><a href="#compose">Compose </a></li> 
+		        </ul>
+	       	</div>
+	 	</div>
+		<div data-role="page" id="compose">
+			<header data-role="header" data-position="fixed">
+				<h1>Compose</h1>
+				<a href="#nav-panel1" data-role="button" data-iconpos="notext" data-icon="bars">Menu</a>
+			</header>
+		
+			<section data-role="content">
+				
+				<form action="#" id="create_form" name="create_form" data-ajax="false">
+				<input type="text" id="sender_id" name="sender_id" readonly="readonly" >
+					<div data-role="controlgroup" data-type="horizontal"  style="float: right">
+						<select title="Priority Level" id="priority_id" name="priority_id">
+						    <option value="2">High</option>
+						    <option value="0" selected="selected">Normal</option>
+						    <option value="1">Low</option>
+					  	</select>
+				  		<a href="#nav-pan1" data-icon="bars" data-role="button" data-iconpos="notext" title="Default Message Template">Menu</a>
+					</div> <br /><br />
+
+					<label for="user_id">TO:</label>
+					<input type="text" id="user_id" name="user_id" title="Please enter recipient user name" />
+					<label for="subject">Subject:</label>
+					<input type="text" id="subject" name="subject" title="Enter message subject" />
+					<label for="message_body" >Message:</label>
+					<textarea id="message_body" name="message_body"></textarea>
+					<button id="btnSend" data-theme="b" >Send</button>
+					<a href="#" data-role="button" data-theme="a" id="btnCancel">Cancel</a>
+				</form>
+				
+			</section>
+		
+			<footer data-role="footer" data-position="fixed">
+				<h4>&copy; 2014</h4>		 		
+			</footer>
+			<div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="b" id="nav-panel1">
+		 	    <ul data-role="listview" >
+		 	      	<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+		            <li><a href="#inbox">Inbox</a></li>
+		            <li><a href="#" data-rel="close">Compose </a></li> 
+		        </ul>
+	       	</div>
+			<div data-role="panel" data-position="right" data-display="overlay" data-theme="b" id="nav-pan1" >
+				<ul data-role="listview" >
+					<li data-icon="delete"><a href="#" data-icon-position="right" data-rel="close">Close menu</a></li>
+					<li class="listitem" text="where are you?"><a href="#" data-rel="close" id="msg1" >where are you?</a></li>
+					<li class="listitem" text="Text me right now"><a href="#" data-rel="close" id="msg2" >Text me right now</a></li>
+					<li class="listitem" text="where are you up to?"><a href="#" data-rel="close" id="msg3">where are you up to?</a></li>
+					<li class="listitem" text="Sorry I'm in a meeting now" ><a href="#" data-rel="close" id="msg4">Sorry I'm in a meeting now</a></li>
+					<li class="listitem" text="I'm good. Don't worry." ><a href="#" data-rel="close" id="msg5">I'm good. Don't worry.</a></li>
+					<li class="listitem" text="I'm on my way home." ><a href="#" data-rel="close" id="msg6">I'm on my way home.</a></li>
+					<li class="listitem" text="Urgently! Please reply to me ASAP" ><a href="#" data-rel="close" id="msg7">Urgently! Please reply to me ASAP.</a></li>
+					<li class="listitem" text="I'll get back to you" ><a href="#" data-rel="close" id="msg8">I'll get back to you.</a></li>
+					<li class="listitem" text="I'll will be right there" ><a href="#" data-rel="close" id="msg9">I'll will be right there.</a></li>
+					<li class="listitem" text="Check this out!" ><a href="#" data-rel="close" id="msg10">Check this out!</a></li>
+					<li class="listitem" text="Come right now" ><a href="#" data-rel="close" id="msg11">Come right now</a></li>
+					<li class="listitem" text="Let's go there" ><a href="#" data-rel="close" id="msg12">Let's go there</a></li>
+					<li class="listitem" text="See you soon"><a href="#" data-rel="close" id="msg13">See you soon</a></li>
+					<li class="listitem" text="Let's party hard" ><a href="#" data-rel="close" id="msg14">Let's party hard</a></li>
+					<li class="listitem" text="Let's party hard" ><a href="#" data-rel="close" id="msg15">I'm available</a></li>
+					<li class="listitem" text="I am too busy" ><a href="#" data-rel="close" id="msg16">I am too busy</a></li>			
+				</ul>
+			</div><!-- /panel -->
+		</div>
+		
+		<div data-role="page" id="mbody">
+			<header data-role="header" data-position="fixed">
+				<h1>Message</h1>
+				<a href="#inbox" id="btnBackToMsg" data-role="button" data-icon="back">Back</a>
+			</header>
+			
+			<section data-role="content" id="sectn">
+				<a href="#"  data-role="button" data-icon="info" data-display="false" id="flg_id">Flag</a>
+				<form >
+					<ul id="message_display" data-role="listview" data-inset="true">
+						
+					</ul>
+					<textarea id="msg_disp" name="msg_disp" data-inset="false" readonly="readonly"></textarea>
+				</form>
+				<a href="#" id="btnreply" data-inline="true" onclick="toggleBox(this);" >Reply</a>
+				<div id="replym" style="display: none;" data-mini="true">
+					<fieldset data-role="controlgroup" >
+						<form id="reply_form" data-ajax="false" >
+							<label for="message_body1" style="font-weight: bold" >Message:</label>
+							<div data-role="controlgroup" data-type="horizontal"  style="float: right">
+								<select id="priority_id1" name="priority_id1" title="Priority Level">
+								    <option value="2">High</option>
+								    <option value="0" selected="selected">Normal</option>
+								    <option value="1" >Low</option>
+							  	</select>
+								<a href="#nav-pan" data-icon="bars" data-role="button" title="Default Message Template">Menu</a>
+							</div>
+							<textarea id="message_body1" name="message_body1" rows="5" cols="10"></textarea>
+							
+							<div>
+								<button id="btnSendReply" data-theme="b">Send</button>
+								
+								<button href="#" data-icon="delete" data-theme="a" id="btnCancel">Cancel</button>
+							</div>
+						</form>
+					</fieldset>					
+				</div>
+			</section>
+		
+			<footer data-role="footer" data-position="fixed">
+				<h4>&copy; 2014</h4>		 		
+			</footer>
+			<div data-role="panel" data-position="right" data-display="overlay" data-theme="b" id="nav-pan" >
+				<ul data-role="listview" >
+					<li data-icon="delete" data-icon-position="right"><a href="#" data-rel="close">Close menu</a></li>
+					<li class="listitem1" text="where are you?"><a href="#" data-rel="close" id="msg1" >where are you?</a></li>
+					<li class="listitem1" text="Text me right now"><a href="#" data-rel="close" id="msg2" >Text me right now</a></li>
+					<li class="listitem1" text="where are you up to?"><a href="#" data-rel="close" id="msg3">where are you up to?</a></li>
+					<li class="listitem1" text="Sorry I'm in a meeting now" ><a href="#" data-rel="close" id="msg4">Sorry I'm in a meeting now</a></li>
+					<li class="listitem1" text="I'm good. Don't worry." ><a href="#" data-rel="close" id="msg5">I'm good. Don't worry.</a></li>
+					<li class="listitem1" text="I'm on my way home." ><a href="#" data-rel="close" id="msg6">I'm on my way home.</a></li>
+					<li class="listitem1" text="Urgently! Please reply to me ASAP" ><a href="#" data-rel="close" id="msg7">Urgently! Please reply to me ASAP.</a></li>
+					<li class="listitem1" text="I'll get back to you" ><a href="#" data-rel="close" id="msg8">I'll get back to you.</a></li>
+					<li class="listitem1" text="I'll will be right there" ><a href="#" data-rel="close" id="msg9">I'll will be right there.</a></li>
+					<li class="listitem1" text="Check this out!" ><a href="#" data-rel="close" id="msg10">Check this out!</a></li>
+					<li class="listitem1" text="Come right now" ><a href="#" data-rel="close" id="msg11">Come right now</a></li>
+					<li class="listitem1" text="Let's go there" ><a href="#" data-rel="close" id="msg12">Let's go there</a></li>
+					<li class="listitem1" text="See you soon"><a href="#" data-rel="close" id="msg13">See you soon</a></li>
+					<li class="listitem1" text="Let's party hard" ><a href="#" data-rel="close" id="msg14">Let's party hard</a></li>
+					<li class="listitem1" text="Let's party hard" ><a href="#" data-rel="close" id="msg15">I'm available</a></li>
+					<li class="listitem1" text="I am too busy" ><a href="#" data-rel="close" id="msg16">I am too busy</a></li>				
+				</ul>
+			</div>    <!-- /panel -->
+		</div>
+	</body>
 </html>

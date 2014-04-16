@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
 
 import com.bykart.dao.Schema_Cmp;
 
@@ -19,12 +20,13 @@ import com.bykart.dao.Schema_Cmp;
 @Path("/v2/messages")
 public class V2_messages {
 	
+	JSONObject jsonobject;
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response messages(
 			@QueryParam("userid") String userid)
 	throws Exception {
-		String returnString = null;
+		//String returnString = null;
 		JSONArray json = new JSONArray();
 		
 		
@@ -37,17 +39,47 @@ public class V2_messages {
 			
 			Schema_Cmp dao = new Schema_Cmp();
 			
-			json = dao.queryReturnMessages(userid);
-			returnString = json.toString();
+			json.put(dao.queryReturnMessages(userid));
+			//returnString = json;
+			//jsonobject = new JSONObject();
+			//jsonobject.put("values", json);
 			
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
 			return Response.status(500).entity("Server was not able to process your requerst").build();
 		}
-		return Response.ok(returnString).build();
+		return Response.ok(json).build();
 	}
 	
+	@Path("/specific")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response messages(
+			@QueryParam("userid") String userid,
+			@QueryParam("id") int id)
+	throws Exception {
+		//String returnString = null;
+		JSONArray json = new JSONArray();
+		
+		try {
+			
+			if((userid==null || userid == "") && (id == 0 )) {
+				//return Response.created(null).contentLocation(null).build();
+						Response.status(400).entity("Error: Please enter a userid").build();
+			}
+			
+			Schema_Cmp dao = new Schema_Cmp();
+			
+			json.put(dao.queryReturnSpecMessages(userid, id));
+			
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return Response.status(500).entity("Server was not able to process your requerst").build();
+		}
+		return Response.ok(json).build();
+	}
 	
 	
 	@Path("/{userid}")
@@ -57,8 +89,7 @@ public class V2_messages {
 			@PathParam("userid") String userid)
 	throws Exception {
 		String returnString = null;
-		JSONArray json = new JSONArray();
-		
+		JSONArray json = new JSONArray();	
 		
 		try {
 			
@@ -106,7 +137,7 @@ public class V2_messages {
 	@Consumes({MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON})
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response add_messages(String incomingData) {
-		
+	
 		String returnString = null;
 		JSONArray jsonArray = new JSONArray();
 		Schema_Cmp dao = new Schema_Cmp();
@@ -120,10 +151,10 @@ public class V2_messages {
 													itemEntry.message_body,
 													itemEntry.thread_id, 
 													itemEntry.priority_id, 
+													itemEntry.subject,
 													itemEntry.recieved_date, 
-													itemEntry.sender_id, 
-													itemEntry.flag_id, 
-													itemEntry.message_status_id);
+													itemEntry.sender_id 
+													);
 			
 			if (http_code == 200) {
 				returnString = jsonArray.toString();
@@ -145,9 +176,9 @@ class message_entry {
 	public String user_id;
 	public String message_body;
 	public String thread_id;
+	public String subject;
 	public String priority_id;
 	public String recieved_date;
 	public String sender_id;
-	public String flag_id;
-	public String message_status_id;
+	
 }

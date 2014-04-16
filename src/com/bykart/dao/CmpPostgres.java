@@ -13,7 +13,7 @@ public class CmpPostgres {
 	
 	
 	public static DriverManager CmpPostgresConn() throws Exception {
-		Class.forName("org.postgresql.Driver");
+		
 		if (CmpPostgres != null) {
 			return CmpPostgres;
 		}
@@ -37,6 +37,7 @@ public class CmpPostgres {
 		Connection conn = null;
 		
 		try {
+			Class.forName("org.postgresql.Driver");
 			conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Mobile", "postgres", "teamred");
 			return conn;
 		}

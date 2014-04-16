@@ -29,7 +29,7 @@ try {
 			
 			Schema_Cmp dao = new Schema_Cmp();
 			
-			json = dao.queryReturnMessages(userid);
+			json = dao.query_users(userid);
 			returnString = json.toString();
 			
 		}
