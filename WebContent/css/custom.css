@@ -14,4 +14,6 @@ input.error, select.error, textarea.error {
 	border: 1px red solid;
 }
 
-section { color: blue;}
+section {
+	background-color: #b0c4de;
+ }
