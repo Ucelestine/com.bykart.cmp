@@ -78,13 +78,13 @@ $(document).ready(function() {
 		function(e) {
 			e.preventDefault;
 			var user = localStorage.getItem('userId');
-			var Id = localStorage.getItem('rowId');
+			var Id = localStorage.getItem('rowid');
 			var stat = localStorage.getItem('status');
 			var f_Id = localStorage.getItem('flagId');
 			
-			if(f_id == false) {
+			if(f_Id == false) {
 				
-				f_id = true;
+				f_Id = true;
 				this.Attr('data-theme', 'b');
 				update_msg(user, Id, stat, f_Id);
 			}

@@ -316,13 +316,14 @@ function process_data(data) {
 		
 		var msg_status = result[0].message_status_id;
 		var f_id = result[0].flag_id;
-		if(result[0].priority_id == 2 ) {
+		if(result[0].flag_id == true ) {
 			$("#flg_id").attr('data-theme', 'b');
 			
 			htmlstr = htmlstr + '<h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
 								+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
 						        '"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input type="text" readonly="readonly" name="dspTo" id="dspTo" value="'+user+'"></li>';
 		} else {
+			$("#flg_id").attr('data-theme', 'a');
 			htmlstr = htmlstr + '<h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
 								+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
 								'"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input readonly="readonly" type="text" name="dspTo" id="dspTo" value="'+user+'"></li>';
