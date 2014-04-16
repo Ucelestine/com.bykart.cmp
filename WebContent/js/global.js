@@ -80,7 +80,7 @@ $(document).ready(function() {
 			var user = localStorage.getItem('userId');
 			var Id = localStorage.getItem('rowId');
 			var stat = localStorage.getItem('status');
-			var f_Id = localstorage.getItem('flagId');
+			var f_Id = localStorage.getItem('flagId');
 			
 			if(f_id == false) {
 				
