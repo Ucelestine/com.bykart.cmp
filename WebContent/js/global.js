@@ -85,12 +85,12 @@ $(document).ready(function() {
 			if(f_Id == "false") {
 				
 				f_Id = true;
-				$(this).attr('data-theme', 'b');
+				//$(this).attr('data-theme', 'b');
 				update_msg(user, Id, stat, f_Id);
 			}
 			else {
 				f_Id = false;
-				$(this).attr('data-theme', 'a');
+				//$(this).attr('data-theme', 'a');
 				update_msg(user, Id, stat, f_Id);
 			}
 			get_spec_message(user, Id);

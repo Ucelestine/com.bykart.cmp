@@ -316,6 +316,7 @@ function process_data(data) {
 		
 		var msg_status = result[0].message_status_id;
 		var f_id = result[0].flag_id;
+		
 		if(result[0].flag_id == true ) {
 			$("#flg_id").attr('data-theme', 'e');
 			
