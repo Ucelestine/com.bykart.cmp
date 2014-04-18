@@ -231,7 +231,7 @@ function display_data(data) {
 	
 	var result = JSON.parse(data);
 	var code = "";
-	
+	var str = "";
 	for (var i= 0; i < result.length; i++ ) {
 		
 		if(result.hasOwnProperty(i)) {
@@ -243,37 +243,68 @@ function display_data(data) {
 			var rdate =(new Date(result[i].recieved_date)).toJSON().slice(0,10);
 			var now = new Date().toJSON().slice(0,10);
 			var diff = moment(now) - moment(rdate);
+			var maxD = 86400000;
+			var maxd2 = 172800000;
 			var status = result[i].message_status_id;
 			var m = moment().subtract('days', 10).calendar();
 			
 			var fId = result[i].flag_id;
+			
 		
-			
-			
-			if(result[i].message_status_id == false) {
-				if(result[i].priority_id == 2) {
+			if(diff <= maxD)
+				{
+					if(result[i].message_status_id == false) {
+						if(result[i].priority_id == 2) {
+							
+							code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="alert">'
+										+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
+										+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
+						} else {
+							
+							code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
+										+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
+										+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';	
+						}	
+					} else {
+						
+						code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
+									+'<a href="#mbody"><h3>'+sender+'</h3><p><strong>'+topic+'</strong></p><p>'
+									+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
+					}
+				}
+				else if( diff <= maxD2)
+				{
+					if(result[i].message_status_id == false) {
+						if(result[i].priority_id == 2) {
+							
+							str = str + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="alert">'
+										+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
+										+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
+						} else {
+							
+							str = str + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
+										+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
+										+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';	
+						}	
+					} else {
+						
+						str = str + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
+									+'<a href="#mbody"><h3>'+sender+'</h3><p><strong>'+topic+'</strong></p><p>'
+									+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
+					}
 					
-					code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="alert">'
-								+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
-								+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
-				} else {
 					
-					code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
-								+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
-								+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';	
-				}	
-			} else {
-				
-				code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
-							+'<a href="#mbody"><h3>'+sender+'</h3><p><strong>'+topic+'</strong></p><p>'
-							+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
-			}
+				}
+				else{}
 		}
 	}
 	 $('#today_msg').html(code);
+	 $('#yesterday_msg').html(str);
 	 $('#today_msg').listview();
+	 $('#yesterday_msg').listview();
 
 	 $('#today_msg').listview('refresh');
+	 $('#yesterday_msg').listview('refresh');
 	 
 	 $(".msglistview").tap(function() {
 		 var Id = this.getAttribute('rowid');
