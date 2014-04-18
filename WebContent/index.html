@@ -96,7 +96,7 @@
 			<section data-role="content">
 				<form action="#" id="create_form" name="create_form" data-ajax="false">
 				<input type="text" id="sender_id" name="sender_id" readonly="readonly" >
-					<div data-role="controlgroup" data-type="horizontal"  style="float: right">
+					<div data-role="controlgroup" data-type="horizontal"  style="float: right" data-mini="true">
 						<select title="Priority Level" id="priority_id" name="priority_id">
 						    <option value="2">High</option>
 						    <option value="0" selected="selected">Normal</option>
@@ -156,8 +156,8 @@
 			</header>
 			
 			<section data-role="content" id="sectn">
-				<a href="#"  data-role="button" data-iconpos="notext" data-icon="info" data-display="false" id="flg_id">Flag</a>
-				<form >
+				<a href="#"  data-role="button" data-iconpos="notext" data-icon="info" data-display="false" id="flg_id" >Flag</a>
+				<form data-role="fieldcontain">
 					<ul id="message_display" data-role="listview" data-inset="true">
 					</ul>
 					<textarea id="msg_disp" name="msg_disp" data-inset="false" readonly="readonly"></textarea>
@@ -176,12 +176,12 @@
 								<a href="#nav-pan" data-icon="bars" data-role="button" data-iconpos="notext" title="Default Message Template">Menu</a>
 							</div>
 							<textarea id="message_body1" name="message_body1" rows="5" cols="10"></textarea>
-							
+							<button data-inline="true" id="hats" data-theme="h"></button>
 							<fieldset class="ui-grid-a">
 								<div class="ui-block-a"><button id="btnSendReply" data-inline="true" data-theme="b">Send</button></div>
 								<div class="ui-block-b"><button data-theme="a" data-inline="true" id="btnCancel">Cancel</button></div>
 							</fieldset>
-							<button data-inline="true" id="hats" data-theme="h"></button>
+							
 						</form>
 					</fieldset>					
 				</div>
