@@ -14,10 +14,10 @@ input.error, select.error, textarea.error {
 	border: 1px red solid;
 }
 
-#mbody {
+#list_sectn {
 	background-color: #b0c4de;
  }
  
-page {
+#sectn {
 	background-color: #b0c4de;
  }

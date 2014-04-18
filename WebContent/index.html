@@ -156,40 +156,39 @@
 			</header>
 			
 			<section data-role="content" id="sectn">
-				<a href="#"  data-role="button" data-iconpos="notext" data-icon="info" data-display="false" id="flg_id" >Flag</a>
+				
 				<form data-role="fieldcontain">
 					<ul id="message_display" data-role="listview" data-inset="true">
 					</ul>
 					<label for="msg_disp" id="msg_disp1" style="float: right"></label>
 					<textarea id="msg_disp" name="msg_disp" data-inset="false" readonly="readonly"></textarea>
 				</form>
-				<a href="#" id="btnreply" data-inline="true" onclick="toggleBox(this);" data-role="button" >Reply</a>
+				
 				<div id="replym" style="display: none;" data-mini="true">
-					<fieldset data-role="controlgroup" >
-						<form id="reply_form" data-ajax="false" >
-							<label for="message_body1" style="font-weight: bold" >Message:</label>
-							<div data-role="controlgroup" data-type="horizontal"  style="float: right" data-mini="true">
-								<select id="priority_id1" name="priority_id1" title="Priority Level">
-								    <option value="2">High</option>
-								    <option value="0" selected="selected">Normal</option>
-								    <option value="1" >Low</option>
-							  	</select>
-								<a href="#nav-pan" data-icon="bars" data-role="button" data-iconpos="notext" title="Default Message Template">Menu</a>
-							</div>
-							<textarea id="message_body1" name="message_body1" rows="5" cols="10"></textarea>
-							<button data-inline="true" id="hats" data-theme="h"></button>
-							<fieldset class="ui-grid-a">
-								<div class="ui-block-a"><button id="btnSendReply" data-inline="true" data-theme="b">Send</button></div>
-								<div class="ui-block-b"><button data-theme="a" data-inline="true" id="btnCancel">Cancel</button></div>
-							</fieldset>
-							
-						</form>
-					</fieldset>					
+					
+					<form id="reply_form" data-ajax="false" >
+						<label for="message_body1" style="font-weight: bold" >Message:</label>
+						<div data-role="controlgroup" data-type="horizontal"  style="float: right" data-mini="true">
+							<select id="priority_id1" name="priority_id1" title="Priority Level">
+							    <option value="2">High</option>
+							    <option value="0" selected="selected">Normal</option>
+							    <option value="1" >Low</option>
+						  	</select>
+							<a href="#nav-pan" data-icon="bars" data-role="button" data-iconpos="notext" title="Default Message Template">Menu</a>
+						</div>
+						<textarea id="message_body1" name="message_body1" rows="5" cols="10"></textarea>
+						
+						<fieldset class="ui-grid-a">
+							<div class="ui-block-a"><button id="btnSendReply" data-theme="b">Send</button></div>
+							<div class="ui-block-b"><button data-theme="a" id="btnCancel">Cancel</button></div>
+						</fieldset>
+					</form>			
 				</div>
 			</section>
 		
 			<footer data-role="footer" data-position="fixed">
-				<h4>&copy; 2014</h4>		 		
+				<a href="#" data-inline="true" id="btnreply" onclick="toggleBox(this);" data-role="button" >Reply</a>
+				<a href="#"  data-role="button" data-iconpos="notext" data-icon="info" id="flg_id">Flag</a>	 		
 			</footer>
 			<div data-role="panel" data-position="right" data-display="overlay" data-theme="b" id="nav-pan" >
 				<ul data-role="listview" >
