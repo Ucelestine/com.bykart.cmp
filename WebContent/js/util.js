@@ -242,9 +242,12 @@ function display_data(data) {
 			var thrd_id = result[i].thread_id;
 			var rdate =(new Date(result[i].recieved_date)).toJSON().slice(0,10);
 			var now = new Date().toJSON().slice(0,10);
-			var diff = (now - rdate);
+			var diff = moment(now) - moment(rdate);
 			var status = result[i].message_status_id;
+			var m = moment().subtract('days', 10).calendar();
+			
 			var fId = result[i].flag_id;
+		
 			
 			
 			if(result[i].message_status_id == false) {
