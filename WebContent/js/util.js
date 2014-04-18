@@ -244,7 +244,7 @@ function display_data(data) {
 			var now = new Date().toJSON().slice(0,10);
 			var diff = moment(now) - moment(rdate);
 			var maxD = 86400000;
-			var maxd2 = 172800000;
+			var maxD2 = 172800000;
 			var status = result[i].message_status_id;
 			var m = moment().subtract('days', 10).calendar();
 			
