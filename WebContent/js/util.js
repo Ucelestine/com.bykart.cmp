@@ -356,7 +356,7 @@ function process_data(data) {
 		if(result[0].flag_id == true ) {
 			$("#flg_id").attr('data-theme', 'e');
 			
-			htmlstr = htmlstr + '<h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
+			htmlstr = htmlstr + '<p>Flaged for follow up.</p><h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
 								+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
 						        '"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input type="text" readonly="readonly" name="dspTo" id="dspTo" value="'+user+'"></li>';
 		} else {
@@ -367,6 +367,8 @@ function process_data(data) {
 		}	
 	}
 	$("#message_display").html(htmlstr);
+	$("#msg_disp").label(result[0].sender_id);
 	$("#msg_disp").text(result[0].message_body);
+	
 	$('#message_display').refresh;
 }
