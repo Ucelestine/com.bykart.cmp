@@ -367,7 +367,7 @@ function process_data(data) {
 		}	
 	}
 	$("#message_display").html(htmlstr);
-	$("#msg_disp").label(result[0].sender_id);
+	$("#msg_disp1").label(result[0].sender_id);
 	$("#msg_disp").text(result[0].message_body);
 	
 	$('#message_display').refresh;
