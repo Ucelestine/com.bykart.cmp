@@ -57,21 +57,21 @@ public class V2_messages {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response messages(
 			@QueryParam("userid") String userid,
-			@QueryParam("id") int id)
+			@QueryParam("id") int threadid)
 	throws Exception {
 		//String returnString = null;
 		JSONArray json = new JSONArray();
 		
 		try {
 			
-			if((userid==null || userid == "") && (id == 0 )) {
+			if((userid==null || userid == "") && (threadid == 0 )) {
 				//return Response.created(null).contentLocation(null).build();
 						Response.status(400).entity("Error: Please enter a userid").build();
 			}
 			
 			Schema_Cmp dao = new Schema_Cmp();
 			
-			json.put(dao.queryReturnSpecMessages(userid, id));
+			json.put(dao.queryReturnSpecMessages(userid, threadid));
 			
 		}
 		catch (Exception ex) {

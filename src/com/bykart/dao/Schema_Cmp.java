@@ -224,7 +224,7 @@ public class Schema_Cmp extends CmpPostgres {
 	}
 	
 	
- public JSONArray queryReturnSpecMessages(String userid, int id) throws Exception {
+ public JSONArray queryReturnSpecMessages(String userid, int threadid) throws Exception {
 		
 		PreparedStatement query = null;
 		Connection conn = null;
@@ -238,12 +238,14 @@ public class Schema_Cmp extends CmpPostgres {
 			query = conn.prepareStatement("SELECT m.id, m.user_id, m.message_body, m.thread_id, m.priority_id, m.recieved_date, m.sender_id, m.flag_id, m.message_status_id, t.subject " +
 											" FROM messages m, thread t" +
 											" WHERE UPPER(user_id) = ?" +
-											" AND m.id = ? " +
+											" OR UPPER(sender_id) = ?" +
+											" AND m.thread_id = ? " +
 											" AND m.thread_id = t.id" +
 											" ORDER BY m.recieved_date DESC");
 			
 			query.setString(1, userid.toUpperCase());
-			query.setInt(2, id);
+			query.setString(2, userid.toUpperCase());
+			query.setInt(2, threadid);
 			ResultSet rs = query.executeQuery();
 			
 			json = converter.toJSONArray(rs);
