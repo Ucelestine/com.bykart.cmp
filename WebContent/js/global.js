@@ -31,9 +31,9 @@ $(document).ready(function() {
 	
 	$('.listitem1').each(function(){
 		
-		$(this).click(function(e) {
-			e.preventDefault;
-			var list = $(this).attr("text");
+		$(this).click(function() {
+			//e.preventDefault;
+			var list = $(this).attr("value");
 			$('#message_body1').text(list);
 		});
 
@@ -51,7 +51,7 @@ $(document).ready(function() {
 		var jsObj = $create_form.serializeObject();
 		send_msg(jsObj);
 		var user = localStorage.getItem('userId');
-		$('#create_form').refresh();
+		$('#create_form').refresh;
 		get_messages(user);
 	});
 	
@@ -70,7 +70,7 @@ $(document).ready(function() {
 		var jsObj = $reply_form.serializeObject();
 		reply_message(jsObj);
 		var user = localStorage.getItem('userId');
-		$('#reply_form').refresh();
+		$('#reply_form').refresh;
 		get_messages(user);
 	});
 	

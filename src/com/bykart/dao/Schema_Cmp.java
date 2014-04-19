@@ -280,12 +280,12 @@ public class Schema_Cmp extends CmpPostgres {
 	
 	Boolean f_id =  false;
 	Boolean ms_id = false;
-	if(flag_id == "true") {
+	if(Boolean.parseBoolean(flag_id) == true) {
 		f_id = true;
 	}
 	query.setBoolean(1, f_id);
 	
-	if( message_status_id.toString() == "true" ) {
+	if(Boolean.parseBoolean(message_status_id) == true ) {
 		ms_id = true;
 	}
 	query.setBoolean(2, ms_id);

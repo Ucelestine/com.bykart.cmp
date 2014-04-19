@@ -251,7 +251,7 @@ function display_data(data) {
 			var fId = result[i].flag_id;
 			
 		
-			if(diff <= maxD)
+			if(diff < maxD)
 				{
 					if(result[i].message_status_id == false) {
 						if(result[i].priority_id == 2) {
@@ -272,7 +272,7 @@ function display_data(data) {
 									+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
 					}
 				}
-				else if( diff <= maxD2)
+				else if( diff < maxD2)
 				{
 					if(result[i].message_status_id == false) {
 						if(result[i].priority_id == 2) {
@@ -316,7 +316,7 @@ function display_data(data) {
 		 var stat = this.getAttribute('Stat');
 		 var f_Id = this.getAttribute('flagid');
 		 
-		 var s = stat.toString();
+		 //var s = stat.toString();
 		 
 		 localStorage.setItem('senderId', sender);
 		 localStorage.setItem('subject', subj);
@@ -328,11 +328,14 @@ function display_data(data) {
 		 
 		 get_spec_message(user, Id);
 		 
-		 if(s == "false") {
+		 if(stat.toString() == "false") {
 			 
-			s = true;
-			update_msg(user, Id, s, f_Id);
+			stat = true;
+			localStorage.setItem('status', stat);
+			update_msg(user, Id, stat, f_Id);
 		 }
+		 else
+			 stat = false;
 	 });
 }
 
@@ -361,7 +364,7 @@ function process_data(data) {
 						        '"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input type="text" readonly="readonly" name="dspTo" id="dspTo" value="'+user+'"></li>';
 		}
 		else if(result[0].flag_id == false) {
-			$("#flg_id").attr('data-theme', 'a');
+			$("#flg_id").attr('data-icon', 'plus');
 			htmlstr = htmlstr + '<h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
 								+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
 								'"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input readonly="readonly" type="text" name="dspTo" id="dspTo" value="'+user+'"></li>';
@@ -371,5 +374,7 @@ function process_data(data) {
 	$("#msg_disp1").text(result[0].sender_id);
 	$("#msg_disp").text(result[0].message_body);
 	
-	$('#message_display').refresh;
+	$("#message_display").listview();
+	
+	$('#message_display').listview('refresh');
 }

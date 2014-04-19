@@ -69,7 +69,7 @@
 				    </div>
 				    <div data-role="collapsible" data-theme="b">
 					    <h2>Yesterday's Messages</h2>
-				        <ul data-role="listview" data-theme="f" data-divider-theme="b" id="yesterday_msg">
+				        <ul data-role="listview" data-theme="d" data-divider-theme="e" id="yesterday_msg">
 
 				        </ul>
 				    </div>
@@ -187,14 +187,22 @@
 			</section>
 		
 			<footer data-role="footer" data-position="fixed">
-				<a href="#" data-inline="true" id="btnreply" onclick="toggleBox(this);" data-role="button" >Reply</a>
-				<a href="#"  data-role="button" data-iconpos="notext" data-icon="info" id="flg_id">Flag</a>	 		
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<a href="#" data-inline="true" id="btnreply" onclick="toggleBox(this);" data-role="button" >Reply</a>
+							<a href="#"  data-role="button" data-iconpos="notext" data-icon="info" id="flg_id" class="ui-btn-right">Flag</a>
+						</li>
+					</ul>
+				</div>
+				<h1>&copy; 2013</h1>
+					 		
 			</footer>
 			<div data-role="panel" data-position="right" data-display="overlay" data-theme="b" id="nav-pan" >
 				<ul data-role="listview" >
 					<li data-icon="delete" data-icon-position="right"><a href="#" data-rel="close">Close menu</a></li>
-					<li class="listitem1" text="where are you?"><a href="#" data-rel="close" id="msg1" >where are you?</a></li>
-					<li class="listitem1" text="Text me right now"><a href="#" data-rel="close" id="msg2" >Text me right now</a></li>
+					<li class="listitem1" value="where are you?"><a href="#" data-rel="close" id="msg1" >where are you?</a></li>
+					<li class="listitem1" value="Text me right now"><a href="#" data-rel="close" id="msg2" >Text me right now</a></li>
 					<li class="listitem1" text="where are you up to?"><a href="#" data-rel="close" id="msg3">where are you up to?</a></li>
 					<li class="listitem1" text="Sorry I'm in a meeting now" ><a href="#" data-rel="close" id="msg4">Sorry I'm in a meeting now</a></li>
 					<li class="listitem1" text="I'm good. Don't worry." ><a href="#" data-rel="close" id="msg5">I'm good. Don't worry.</a></li>
