@@ -153,8 +153,13 @@
 			<header data-role="header" data-position="fixed">
 				<h1>Message</h1>
 				<a href="#inbox" id="btnBackToMsg" data-role="button" data-icon="back">Back</a>
+				<hr></hr>
+				<div style="float: right">
+					<a href="#" data-inline="true" id="btnreply" onclick="toggleBox(this);" data-role="button" >Reply</a>
+					<a href="#"  data-role="button" data-iconpos="notext" data-icon="info" id="flg_id" class="ui-btn-right">Flag</a>
+				</div>
+				<div style="clear: both;"></div>
 			</header>
-			
 			<section data-role="content" id="sectn">
 				
 				<form data-role="fieldcontain">
@@ -187,14 +192,6 @@
 			</section>
 		
 			<footer data-role="footer" data-position="fixed">
-				<div data-role="navbar">
-					<ul>
-						<li>
-							<a href="#" data-inline="true" id="btnreply" onclick="toggleBox(this);" data-role="button" >Reply</a>
-							<a href="#"  data-role="button" data-iconpos="notext" data-icon="info" id="flg_id" class="ui-btn-right">Flag</a>
-						</li>
-					</ul>
-				</div>
 				<h1>&copy; 2013</h1>
 					 		
 			</footer>
