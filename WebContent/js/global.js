@@ -81,6 +81,7 @@ $(document).ready(function() {
 			var Id = localStorage.getItem('rowid');
 			var stat = localStorage.getItem('status');
 			var f_Id = localStorage.getItem('flagId');
+			var thr_id = localStorage.getItem('threadId');
 			
 			if(f_Id == "false") {
 				
@@ -93,7 +94,7 @@ $(document).ready(function() {
 				//$(this).attr('data-theme', 'a');
 				update_msg(user, Id, stat, f_Id);
 			}
-			get_spec_message(user, Id);
+			get_spec_message(user, thr_id);
 		});
 	
 });
