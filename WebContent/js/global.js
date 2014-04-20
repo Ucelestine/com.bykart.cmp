@@ -52,6 +52,7 @@ $(document).ready(function() {
 		send_msg(jsObj);
 		var user = localStorage.getItem('userId');
 		$('#create_form').refresh;
+		$('#create_form').clear();
 		get_messages(user);
 	});
 	
@@ -71,6 +72,7 @@ $(document).ready(function() {
 		reply_message(jsObj);
 		var user = localStorage.getItem('userId');
 		$('#reply_form').refresh;
+		$('#reply_form').clear;
 		get_messages(user);
 	});
 	

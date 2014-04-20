@@ -193,11 +193,9 @@ public class Schema_Cmp extends CmpPostgres {
 											" FROM messages m, thread t" +
 											" WHERE m.thread_id = t.id " +
 											" AND UPPER(m.user_id) = ? " +
-											" OR UPPER(m.sender_id) = ?" +
 											" ORDER BY m.recieved_date DESC ");
 			
 			query.setString(1, userid.toUpperCase());
-			query.setString(2, userid.toUpperCase());
 			
 			ResultSet rs = query.executeQuery();
 			

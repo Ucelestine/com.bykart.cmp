@@ -346,7 +346,7 @@ function process_data(data) {
 	var hStr = "";
 	var len = result.length;
 	
-		
+	for (var i = 0; i < result.length; i++) {
 		if(result.hasOwnProperty(0)) {
 			var row_id = result[0].id;
 			var user = result[0].user_id;
@@ -363,8 +363,6 @@ function process_data(data) {
 			htmlstr = htmlstr + '<p>Flaged for follow up.</p><h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
 								+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
 								'"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input type="text" readonly="readonly" name="dspTo" id="dspTo" value="'+user+'"></li>';
-			
-			for (var i = 0; i < result.length; i++) {
 				
 			if(result[i].flag_id == true ) {
 				//$("#flg_id").attr('data-theme', 'e');
