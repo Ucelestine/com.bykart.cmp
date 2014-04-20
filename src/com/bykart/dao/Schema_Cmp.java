@@ -245,7 +245,7 @@ public class Schema_Cmp extends CmpPostgres {
 			
 			query.setString(1, userid.toUpperCase());
 			query.setString(2, userid.toUpperCase());
-			query.setInt(2, threadid);
+			query.setInt(3, threadid);
 			ResultSet rs = query.executeQuery();
 			
 			json = converter.toJSONArray(rs);

@@ -343,7 +343,8 @@ function process_data(data) {
 	
 	var result = JSON.parse(data);
 	var htmlstr = "";
-	for (var i = 0; i < len; i++) {
+	var hStr = "";
+	for (var i = 0; i < result.length; i++) {
 		if(result.hasOwnProperty(i)) {
 			var row_id = result[0].id;
 			var user = result[0].user_id;
