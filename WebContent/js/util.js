@@ -344,8 +344,10 @@ function process_data(data) {
 	var result = JSON.parse(data);
 	var htmlstr = "";
 	var hStr = "";
-	for (var i = 0; i < result.length; i++) {
-		if(result.hasOwnProperty(i)) {
+	var len = result.length;
+	
+		
+		if(result.hasOwnProperty(0)) {
 			var row_id = result[0].id;
 			var user = result[0].user_id;
 			var topic = result[0].subject;
@@ -361,13 +363,15 @@ function process_data(data) {
 			htmlstr = htmlstr + '<p>Flaged for follow up.</p><h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
 								+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
 								'"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input type="text" readonly="readonly" name="dspTo" id="dspTo" value="'+user+'"></li>';
+			
+			for (var i = 0; i < result.length; i++) {
 				
 			if(result[i].flag_id == true ) {
 				//$("#flg_id").attr('data-theme', 'e');
 				
 				hStr = hStr +'<a href="#"  data-role="button" data-theme="e" data-inline="true" data-icon="info" id="flg_id">Flag</a'
 							+'<label for="msg_disp" id="msg_disp1" style="float: right">'+result[i].sender_id+'</label>'
-							+'<textarea id="msg_disp" name="msg_disp" data-inset="false" readonly="readonly">'+result[i].message-body+'</textarea>';
+							+'<textarea id="msg_disp" name="msg_disp" data-inset="false" readonly="readonly">'+result[i].message_body+'</textarea>';
 				
 			}
 			else if(result[0].flag_id == false) {
@@ -375,13 +379,12 @@ function process_data(data) {
 				
 				hStr = hStr +'<a href="#"  data-role="button" data-inline="true" data-icon="info" id="flg_id">Flag</a>'
 							+'<li><label for="msg_disp" id="msg_disp1" style="float: right">'+result[i].sender_id+'</label>'
-							+'<textarea id="msg_disp" name="msg_disp" data-inset="false" readonly="readonly">'+result[i].message-body+'</textarea></li>';
+							+'<textarea id="msg_disp" name="msg_disp" data-inset="false" readonly="readonly">'+result[i].message_body+'</textarea></li>';
 				
 				//htmlstr = htmlstr + '<h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
 									//+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
 									//'"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input readonly="readonly" type="text" name="dspTo" id="dspTo" value="'+user+'"></li>';
 			}
-			
 		}
 	}
 	$("#message_display").html(htmlstr);
