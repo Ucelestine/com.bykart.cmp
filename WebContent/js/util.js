@@ -16,16 +16,20 @@ function toggleBox(a) {
 	}
 }
 
+function addDefMsg(val) {
+	$('#message_body').text(val);	
+}
+
+function addDefMsg1(val) {
+	$('#message_body1').text(val);	
+}
+
 function check_user(e) {
 	e.preventDefault;
 	var user = $('#userName').val();
 	if(user == null || user.trim() == "") {
 		alert("Enter a valid username/id");
 	} else {
-		
-		//var $user = $('user');
-		//e.preventDefault;
-		//var jsObj = $user.serializeObject();
 		login(user);
 	}
 }
@@ -36,8 +40,6 @@ function send_msg(jsObj) {
 
 	ajaxObj = {};
 
-//console.log(jsObj);
-
 	ajaxObj = {
 		type: "POST",
 		url: "http://localhost:8080/com.bykart.cmp/api/v3/messages/",
@@ -45,17 +47,17 @@ function send_msg(jsObj) {
 		contentType: "application/json",
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.log("Error " + jqXHR.getAllResponseHeaders() + " " + errorThrown);
+			alert("message failed to send due to invalid userid entered or server error");
 		},
 		success: function(data) {
 			//console.log(data);
 			if(data[0].HTTP_CODE == 200) {
-				//$('#div_ajaxResponse').text( data[0].MSG );
 				alert("Message Sent");
 				window.location.assign("#inbox");
 			}
 		},
 		complete: function(XMLHttpRequest) {
-			//console.log(XMLHttpRequest.getAllResponseHeaders() );
+			 
 		},
 		dataType: "json"  //request JSON
 	};
@@ -86,6 +88,9 @@ function update_msg(user, Id, stat, f_Id) {
 			
 			if(data[0].HTTP_CODE == 200) {
 				console.log("update successful");
+				
+				var thr_id = localStorage.getItem('threadId');
+				get_spec_message(user, thr_id);
 			}
 		},
 		complete: function(XMLHttpRequest) {
@@ -182,6 +187,21 @@ function get_spec_message(user, thr_Id) {
 	$.ajax(ajaxObj);
 }
 
+function setFlagMsg(Id, f_Id) {
+	var user = localStorage.getItem('userId');
+	var stat = localStorage.getItem('status');
+	
+	
+	if (f_Id == false) {
+		f_Id = true;
+		update_msg(user, Id, stat, f_Id);
+	}
+	else {
+		f_Id = false;
+		update_msg(user, Id, stat, f_Id);
+	}
+}
+
 function login(user) { 
 	
 		ajaxObj = {};
@@ -264,7 +284,7 @@ function display_data(data) {
 							code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
 										+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
 										+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';	
-						}	
+						}
 					} else {
 						
 						code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
@@ -344,9 +364,9 @@ function process_data(data) {
 	var result = JSON.parse(data);
 	var htmlstr = "";
 	var hStr = "";
+	var flg = "";
 	var len = result.length;
 	
-	for (var i = 0; i < result.length; i++) {
 		if(result.hasOwnProperty(0)) {
 			var row_id = result[0].id;
 			var user = result[0].user_id;
@@ -358,41 +378,62 @@ function process_data(data) {
 			var f_id = result[0].flag_id;
 			localStorage.setItem('flagId', f_id);
 			localStorage.setItem('status', msg_status);
-			
-			
-			htmlstr = htmlstr + '<p>Flaged for follow up.</p><h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
-								+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
-								'"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input type="text" readonly="readonly" name="dspTo" id="dspTo" value="'+user+'"></li>';
 				
-			if(result[i].flag_id == true ) {
-				//$("#flg_id").attr('data-theme', 'e');
+			if(result[0].flag_id == true ) {
+				$("#flg_id").attr('data-theme', 'b');
 				
-				hStr = hStr +'<a href="#"  data-role="button" data-theme="e" data-inline="true" data-icon="info" id="flg_id">Flag</a'
-							+'<label for="msg_disp" id="msg_disp1" style="float: right">'+result[i].sender_id+'</label>'
-							+'<textarea id="msg_disp" name="msg_disp" data-inset="false" readonly="readonly">'+result[i].message_body+'</textarea>';
 				
+				htmlstr = htmlstr + '<p style="float:right">Flaged for follow up.</p><h3>'+topic+'</h3><p>Date: '+rdate+'</p>'
+								  +'<li data-role="fieldcontain"><label for="dspFrom">From:</label>'
+								  +'<input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+'">'
+								  +'</li><li data-role="fieldcontain"><label for="dspTo">To:</label>'
+								  +'<input type="text" readonly="readonly" name="dspTo" id="dspTo" value="'+user+'">'
+								  +'</br><p>'+result[0].message_body+'</p><hr></hr></li>';
+				
+				
+				for (var i = 1; i < result.length; i++)
+					{
+						
+						hStr = hStr +'<a href="#" onclick="setFlagMsg('+result[i].id+', '+result[i].flag_id+'); return false;" data-role="button" data-iconpos="notext" data-inline="true" '
+									+'class="ui-icon-shadow" style="float:right" data-icon="star" id="flg_id">Flag</a>'
+									+'<li data-role="fieldcontain"><p style="float:right">Flaged for follow up.</p>'
+									+'<p><span style="font-weight: bold">From:</span>'+result[i].sender_id+'</p>'
+									+'<p><span style="font-weight: bold">Sent:</span>'+result[i].recieved_date+'</p>'
+									+'<p><span style="font-weight: bold">To:</span>'+result[i].user_id+'</p>'
+									+'<p><span style="font-weight: bold">Subject:</span>'+result[i].subject+'</p>'
+									+'</br><p>'+result[i].message_body+'</p><hr></hr></li>';
+					}
 			}
 			else if(result[0].flag_id == false) {
-				//$("#flg_id").attr('data-icon', 'plus');
+				$("#flg_id").attr('data-theme', 'd');
 				
-				hStr = hStr +'<a href="#"  data-role="button" data-inline="true" data-icon="info" id="flg_id">Flag</a>'
-							+'<li><label for="msg_disp" id="msg_disp1" style="float: right">'+result[i].sender_id+'</label>'
-							+'<textarea id="msg_disp" name="msg_disp" data-inset="false" readonly="readonly">'+result[i].message_body+'</textarea></li>';
+				htmlstr = htmlstr +'<h3>'+topic+'</h3><p>Date: '+rdate+'</p><li icon-diplay="false data-role="fieldcontain">'
+								  +'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+'">'
+								  +'</li><li data-role="fieldcontain"><label for="dspTo">To:</label>'
+								  +'<input readonly="readonly" type="text" name="dspTo" id="dspTo" value="'+user+'">'
+								  +'</br><p>'+result[0].message_body+'</p><hr></hr></li>';
 				
-				//htmlstr = htmlstr + '<h3>'+topic+'</h3><p>Date: '+rdate+'</p><li data-role="fieldcontain">'
-									//+'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+
-									//'"></li><li data-role="fieldcontain"><label for="dspTo">To:</label><input readonly="readonly" type="text" name="dspTo" id="dspTo" value="'+user+'"></li>';
+				for (var i = 1; i < result.length; i++)
+					{
+					
+						hStr = hStr +'<a href="#" onclick="setFlagMsg('+result[i].id+', '+result[i].flag_id+'); return false;" data-role="button" data-inline="true" class="ui-icon-shadow"'
+									+' data-iconpos="notext" style="float:right" data-icon="star" id="flg_id">Flag</a>'
+									+'<li data-role="fieldcontain"><p><span style="font-weight: bold">From: </span>'+result[i].sender_id+'</p>'
+									+'<p><span style="font-weight: bold">Sent: </span>'+result[i].recieved_date+'</p>'
+									+'<p><span style="font-weight: bold">To: </span>'+result[i].user_id+'</p>'
+									+'<p><span style="font-weight: bold">Subject: </span>'+result[i].subject+'</p>'
+									+'</br><p>'+result[i].message_body+'</p><hr></hr></li>';
+					}
 			}
-		}
 	}
+
 	$("#message_display").html(htmlstr);
-	//$("#msg_disp1").text(;
-	//$("#msg_disp").text(result[0].message_body);
 	$("#message_display").listview();
-	
 	$('#message_display').listview('refresh');
 	$('#disp_list').html(hStr);
 	$('#disp_list').listview();
-	
 	$('#disp_list').listview('refresh');
+	$("#message_display").trigger('create');
+	$("#disp_list").trigger('create');
+	
 }

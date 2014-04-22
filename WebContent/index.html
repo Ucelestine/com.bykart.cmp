@@ -82,12 +82,12 @@
 		 	<div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="b" id="nav-panel">
 		 	    <ul data-role="listview" >
 		 	      	<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-		            <li><a href="#inbox" data-rel="close">Inbox</a></li>
-		            <li><a href="#compose">Compose </a></li> 
+		            <li data-icon="false"><a href="#inbox" data-rel="close">Inbox</a></li>
+		            <li data-icon="false"><a href="#compose">Compose </a></li> 
 		        </ul>
 	       	</div>
 	 	</div>
-		<div data-role="page" id="compose">
+		<div data-role="page" id="compose" style="color: #b0c4de">
 			<header data-role="header" data-position="fixed">
 				<h1>Compose</h1>
 				<a href="#nav-panel1" data-role="button" data-iconpos="notext" data-icon="bars">Menu</a>
@@ -122,41 +122,42 @@
 			<div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="b" id="nav-panel1">
 		 	    <ul data-role="listview" >
 		 	      	<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-		            <li><a href="#inbox">Inbox</a></li>
-		            <li><a href="#" data-rel="close">Compose </a></li> 
+		            <li data-icon="false"><a href="#inbox">Inbox</a></li>
+		            <li data-icon="false"><a href="#" data-rel="close">Compose </a></li> 
 		        </ul>
 	       	</div>
 			<div data-role="panel" data-position="right" data-display="overlay" data-theme="b" id="nav-pan1" >
 				<ul data-role="listview" >
 					<li data-icon="delete"><a href="#" data-icon-position="right" data-rel="close">Close menu</a></li>
-					<li class="listitem" text="where are you?"><a href="#" data-rel="close" id="msg1" >where are you?</a></li>
-					<li class="listitem" text="Text me right now"><a href="#" data-rel="close" id="msg2" >Text me right now</a></li>
-					<li class="listitem" text="where are you up to?"><a href="#" data-rel="close" id="msg3">where are you up to?</a></li>
-					<li class="listitem" text="Sorry I'm in a meeting now" ><a href="#" data-rel="close" id="msg4">Sorry I'm in a meeting now</a></li>
-					<li class="listitem" text="I'm good. Don't worry." ><a href="#" data-rel="close" id="msg5">I'm good. Don't worry.</a></li>
-					<li class="listitem" text="I'm on my way home." ><a href="#" data-rel="close" id="msg6">I'm on my way home.</a></li>
-					<li class="listitem" text="Urgently! Please reply to me ASAP" ><a href="#" data-rel="close" id="msg7">Urgently! Please reply to me ASAP.</a></li>
-					<li class="listitem" text="I'll get back to you" ><a href="#" data-rel="close" id="msg8">I'll get back to you.</a></li>
-					<li class="listitem" text="I'll will be right there" ><a href="#" data-rel="close" id="msg9">I'll will be right there.</a></li>
-					<li class="listitem" text="Check this out!" ><a href="#" data-rel="close" id="msg10">Check this out!</a></li>
-					<li class="listitem" text="Come right now" ><a href="#" data-rel="close" id="msg11">Come right now</a></li>
-					<li class="listitem" text="Let's go there" ><a href="#" data-rel="close" id="msg12">Let's go there</a></li>
-					<li class="listitem" text="See you soon"><a href="#" data-rel="close" id="msg13">See you soon</a></li>
-					<li class="listitem" text="Let's party hard" ><a href="#" data-rel="close" id="msg14">Let's party hard</a></li>
-					<li class="listitem" text="Let's party hard" ><a href="#" data-rel="close" id="msg15">I'm available</a></li>
-					<li class="listitem" text="I am too busy" ><a href="#" data-rel="close" id="msg16">I am too busy</a></li>			
+					<li><a href="#" data-rel="close" id="msg1" onclick="addDefMsg('where are you?'); return false;">where are you?</a></li>
+					<li><a href="#" data-rel="close" id="msg2"onclick="addDefMsg('Text me right now'); return false;" >Text me right now</a></li>
+					<li><a href="#" data-rel="close" id="msg3" onclick="addDefMsg('where are you up to?'); return false;">where are you up to?</a></li>
+					<li><a href="#" data-rel="close" id="msg4" onclick="addDefMsg('Sorry I am in a meeting now'); return false;">Sorry I am in a meeting now</a></li>
+					<li><a href="#" data-rel="close" id="msg5" onclick="addDefMsg('I am good. Do not worry.'); return false;">I am good. Do not worry.</a></li>
+					<li><a href="#" data-rel="close" id="msg6" onclick="addDefMsg('I am on my way home'); return false;">I am on my way home.</a></li>
+					<li><a href="#" data-rel="close" id="msg7" onclick="addDefMsg('Urgently! Please reply to me ASAP.'); return false;">Urgently! Please reply to me ASAP.</a></li>
+					<li><a href="#" data-rel="close" id="msg8" onclick="addDefMsg('I will get back to you.'); return false;">I will get back to you.</a></li>
+					<li><a href="#" data-rel="close" id="msg9" onclick="addDefMsg('I will will be right there.'); return false;">I will will be right there.</a></li>
+					<li><a href="#" data-rel="close" id="msg10" onclick="addDefMsg('Check this out!'); return false;">Check this out!</a></li>
+					<li><a href="#" data-rel="close" id="msg11" onclick="addDefMsg('Come right now'); return false;">Come right now</a></li>
+					<li><a data-rel="close" id="msg12" onclick="addDefMsg('Lets go there'); return false;">Lets go there</a></li>
+					<li><a data-rel="close" id="msg13" onclick="addDefMsg('See you soon'); return false;">See you soon</a></li>
+					<li><a data-rel="close" id="msg14" onclick="addDefMsg('lets party hard'); return false;">Lets party hard</a></li>
+					<li><a href="#" data-rel="close" id="msg15" onclick="addDefMsg('I am available'); return false;">I am available</a></li>
+					<li><a href="#" data-rel="close" id="msg16" onclick="addDefMsg('I am very busy'); return false;">I am very busy</a></li>			
 				</ul>
 			</div><!-- /panel -->
 		</div>
 		
-		<div data-role="page" id="mbody">
+		<div data-role="page" id="mbody" class="ui-page-theme-b">
 			<header data-role="header" data-position="fixed">
 				<h1>Message</h1>
 				<a href="#inbox" id="btnBackToMsg" data-role="button" data-icon="back">Back</a>
+				
 				<hr></hr>
 				<div style="float: right">
-					<a href="#" data-icon="forward" data-inline="true" id="btnreply" onclick="toggleBox(this);" data-role="button">Reply</a>
-					<a href="#"  data-role="button" data-inline="true" data-icon="info" id="flg_id">Flag</a>
+					<a href="#replym" data-icon="forward" data-inline="true" id="btnreply" onclick="toggleBox(this);" data-role="button">Reply</a>
+					<a href="#" data-role="button" data-inline="true" class="ui-icon-shadow" data-icon="star" id="flg_id">Flag</a>
 				</div>
 				<div style="clear: both;"></div>
 			</header>
@@ -166,7 +167,7 @@
 					<ul id="message_display" data-role="listview" data-inset="true">
 					</ul>
 					
-					<ul data-role="listview" id="disp_list"></ul>
+					<ul data-role="listview" id="disp_list" data-inset="true"></ul>
 				</form>
 				
 				<div id="replym" style="display: none;" data-mini="true">
@@ -185,35 +186,35 @@
 						
 						<fieldset class="ui-grid-a">
 							<div class="ui-block-a"><button id="btnSendReply" data-theme="b">Send</button></div>
-							<div class="ui-block-b"><button data-theme="a" id="btnCancel">Cancel</button></div>
+							<div class="ui-block-b"><a href="#" data-role="button" id="btnCancelReply"data-theme="a">Cancel</a></div>
 						</fieldset>
 					</form>			
 				</div>
 			</section>
 		
 			<footer data-role="footer" data-position="fixed">
-				<h1>&copy; 2013</h1>
+				<h1>&copy; 2014</h1>
 					 		
 			</footer>
 			<div data-role="panel" data-position="right" data-display="overlay" data-theme="b" id="nav-pan" >
 				<ul data-role="listview" >
-					<li data-icon="delete" data-icon-position="right"><a href="#" data-rel="close">Close menu</a></li>
-					<li class="listitem1" value="where are you?"><a href="#" data-rel="close" id="msg1" >where are you?</a></li>
-					<li class="listitem1" value="Text me right now"><a href="#" data-rel="close" id="msg2" >Text me right now</a></li>
-					<li class="listitem1" text="where are you up to?"><a href="#" data-rel="close" id="msg3">where are you up to?</a></li>
-					<li class="listitem1" text="Sorry I'm in a meeting now" ><a href="#" data-rel="close" id="msg4">Sorry I'm in a meeting now</a></li>
-					<li class="listitem1" text="I'm good. Don't worry." ><a href="#" data-rel="close" id="msg5">I'm good. Don't worry.</a></li>
-					<li class="listitem1" text="I'm on my way home." ><a href="#" data-rel="close" id="msg6">I'm on my way home.</a></li>
-					<li class="listitem1" text="Urgently! Please reply to me ASAP" ><a href="#" data-rel="close" id="msg7">Urgently! Please reply to me ASAP.</a></li>
-					<li class="listitem1" text="I'll get back to you" ><a href="#" data-rel="close" id="msg8">I'll get back to you.</a></li>
-					<li class="listitem1" text="I'll will be right there" ><a href="#" data-rel="close" id="msg9">I'll will be right there.</a></li>
-					<li class="listitem1" text="Check this out!" ><a href="#" data-rel="close" id="msg10">Check this out!</a></li>
-					<li class="listitem1" text="Come right now" ><a href="#" data-rel="close" id="msg11">Come right now</a></li>
-					<li class="listitem1" text="Let's go there" ><a href="#" data-rel="close" id="msg12">Let's go there</a></li>
-					<li class="listitem1" text="See you soon"><a href="#" data-rel="close" id="msg13">See you soon</a></li>
-					<li class="listitem1" text="Let's party hard" ><a href="#" data-rel="close" id="msg14">Let's party hard</a></li>
-					<li class="listitem1" text="Let's party hard" ><a href="#" data-rel="close" id="msg15">I'm available</a></li>
-					<li class="listitem1" text="I am too busy" ><a href="#" data-rel="close" id="msg16">I am too busy</a></li>				
+					<li data-icon="delete"><a data-icon-position="right" data-rel="close">Close menu</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('where are you?'); return false;">where are you?</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('Text me right now'); return false;" >Text me right now</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('where are you up to?'); return false;">where are you up to?</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('Sorry I am in a meeting now'); return false;">Sorry I am in a meeting now</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('I am good. Do not worry.'); return false;">I am good. Do not worry.</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('I am on my way home'); return false;">I am on my way home.</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('Urgently! Please reply to me ASAP.'); return false;">Urgently! Please reply to me ASAP.</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('I will get back to you.'); return false;">I will get back to you.</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('I will will be right there.'); return false;">I will will be right there.</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('Check this out!'); return false;">Check this out!</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('Come right now'); return false;">Come right now</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('Lets go there'); return false;">Lets go there</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('See you soon'); return false;">See you soon</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('lets party hard'); return false;">Lets party hard</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('I am available'); return false;">I am available</a></li>
+					<li data-icon="false"><a data-rel="close" onclick="addDefMsg1('I am very busy'); return false;">I am very busy</a></li>			
 				</ul>
 			</div>    <!-- /panel -->
 		</div>

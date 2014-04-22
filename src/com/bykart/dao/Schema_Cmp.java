@@ -58,8 +58,8 @@ public class Schema_Cmp extends CmpPostgres {
 			query.setInt(4, prty_id);
 			
 			java.util.Date utilDate = new java.util.Date();
-			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			query.setDate(5, sqlDate);
+			java.sql.Timestamp sqlDate = new java.sql.Timestamp(utilDate.getTime());
+			query.setTimestamp(5, sqlDate);
 			
 			query.setString(6, sender_id);
 			
@@ -118,8 +118,8 @@ public class Schema_Cmp extends CmpPostgres {
 		query.setInt(4, prty_id);
 		
 		java.util.Date utilDate = new java.util.Date();
-		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		query.setDate(5, sqlDate);
+		java.sql.Timestamp sqlDate = new java.sql.Timestamp(utilDate.getTime());
+		query.setTimestamp(5, sqlDate);
 		
 		query.setString(6, sender_id);
 		
@@ -189,11 +189,11 @@ public class Schema_Cmp extends CmpPostgres {
 		try {
 			//CmpPostgres.CmpPostgresConn();
 			conn = cmpMessagesConnection();
-			query = conn.prepareStatement("SELECT m.id, m.user_id, m.message_body, m.thread_id, m.priority_id, m.recieved_date, m.sender_id, m.flag_id, m.message_status_id, t.subject " +
+			query = conn.prepareStatement("SELECT DISTINCT ON (m.thread_id) m.thread_id, m.id, m.user_id, m.message_body, m.priority_id, m.recieved_date, m.sender_id, m.flag_id, m.message_status_id, t.subject " +
 											" FROM messages m, thread t" +
 											" WHERE m.thread_id = t.id " +
 											" AND UPPER(m.user_id) = ? " +
-											" ORDER BY m.recieved_date DESC ");
+											" ORDER BY m.thread_id DESC, m.recieved_date DESC");
 			
 			query.setString(1, userid.toUpperCase());
 			
@@ -235,15 +235,15 @@ public class Schema_Cmp extends CmpPostgres {
 			conn = cmpMessagesConnection();
 			query = conn.prepareStatement("SELECT m.id, m.user_id, m.message_body, m.thread_id, m.priority_id, m.recieved_date, m.sender_id, m.flag_id, m.message_status_id, t.subject " +
 											" FROM messages m, thread t" +
-											" WHERE UPPER(user_id) = ?" +
-											" OR UPPER(sender_id) = ?" +
-											" AND m.thread_id = ? " +
+											//" WHERE UPPER(user_id) = ?" +
+											//" AND UPPER(sender_id) = ?" +
+											" WHERE m.thread_id = ? " +
 											" AND m.thread_id = t.id" +
 											" ORDER BY m.recieved_date DESC");
 			
-			query.setString(1, userid.toUpperCase());
-			query.setString(2, userid.toUpperCase());
-			query.setInt(3, threadid);
+			//query.setString(1, userid.toUpperCase());
+			//query.setString(2, userid.toUpperCase());
+			query.setInt(1, threadid);
 			ResultSet rs = query.executeQuery();
 			
 			json = converter.toJSONArray(rs);

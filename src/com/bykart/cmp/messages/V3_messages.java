@@ -30,8 +30,6 @@ public class V3_messages {
 			JSONObject messageData = new JSONObject(incomingData);
 			System.out.println("jsonData: " + messageData.toString());
 			
-			
-			
 			int http_code = dao.insert_into_message(messageData.optString("user_id"),
 														messageData.optString("message_body"),
 														messageData.optString("thread_id"), 
@@ -40,7 +38,6 @@ public class V3_messages {
 														messageData.optString("recieved_date"), 
 														messageData.optString("sender_id") 
 														);
-			
 			if (http_code == 200) {
 				jsonObject.put("HTTP_CODE", "200");
 				jsonObject.put("MSG", "Message has been sent sucessfully, Version 3");
@@ -56,7 +53,6 @@ public class V3_messages {
 		}
 		
 		return Response.ok(returnString).build();
-		
 	}
 	
 	
@@ -73,8 +69,6 @@ public class V3_messages {
 		try {
 			JSONObject messageData = new JSONObject(incomingData);
 			System.out.println("jsonData: " + messageData.toString());
-			
-			
 			
 			int http_code = dao.update_message(messageData.optString("id"),
 														messageData.optString("user_id"),
@@ -99,6 +93,7 @@ public class V3_messages {
 		return Response.ok(returnString).build();
 		
 	}
+	
 	@Path("/reply")
 	@POST
 	@Consumes({MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON})
@@ -113,8 +108,6 @@ public class V3_messages {
 		try {
 			JSONObject messageData = new JSONObject(incomingData);
 			System.out.println("jsonData: " + messageData.toString());
-			
-			
 			
 			int http_code = dao.reply_to_message(messageData.optString("user_id"),
 														messageData.optString("message_body1"),
