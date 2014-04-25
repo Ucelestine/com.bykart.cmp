@@ -14,10 +14,14 @@ input.error, select.error, textarea.error {
 	border: 1px red solid;
 }
 
-#list_sectn {
+body {
 	background-color: #b0c4de;
  }
  
-#sectn {
+compose {
 	background-color: #b0c4de;
  }
+ 
+ section {
+	background-color: #b0c4de;
+}

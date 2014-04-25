@@ -26,23 +26,20 @@ public class V2_messages {
 	public Response messages(
 			@QueryParam("userid") String userid)
 	throws Exception {
-		//String returnString = null;
+		
 		JSONArray json = new JSONArray();
 		
 		
 		try {
 			
 			if(userid==null || userid == "") {
-				//return Response.created(null).contentLocation(null).build();
 						Response.status(400).entity("Error: Please enter a userid").build();
 			}
 			
 			Schema_Cmp dao = new Schema_Cmp();
 			
 			json.put(dao.queryReturnMessages(userid));
-			//returnString = json;
-			//jsonobject = new JSONObject();
-			//jsonobject.put("values", json);
+			
 			
 		}
 		catch (Exception ex) {
@@ -59,13 +56,13 @@ public class V2_messages {
 			@QueryParam("userid") String userid,
 			@QueryParam("id") int threadid)
 	throws Exception {
-		//String returnString = null;
+		
 		JSONArray json = new JSONArray();
 		
 		try {
 			
 			if((userid==null || userid == "") && (threadid == 0 )) {
-				//return Response.created(null).contentLocation(null).build();
+				
 						Response.status(400).entity("Error: Please enter a userid").build();
 			}
 			

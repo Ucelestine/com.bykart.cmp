@@ -82,8 +82,8 @@ $(document).ready(function() {
 		reply_message(jsObj);
 		var user = localStorage.getItem('userId');
 		var thr_id = localStorage.getItem('threadId');
-		$('#reply_form').refresh;
-		$('#reply_form').clear;
+		$('#message_body1').val("");
+		$("#replym").hide();
 		get_spec_message(user, thr_id);
 	});
 	
@@ -123,4 +123,7 @@ $(document).ready(function() {
 			get_spec_message(user, thr_id);
 		});
 	
+	$('#compose').on('pageshow',
+			get_users
+			);
 });

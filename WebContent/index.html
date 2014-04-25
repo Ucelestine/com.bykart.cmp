@@ -51,11 +51,11 @@
 		 	
 		 </div>
 		 
-		 <div data-role="page" id="inbox">
+		 <div data-role="page" id="inbox" >
 		 	<header data-role="header" data-position="fixed">
 		 		<h1>Inbox</h1>
 		 		<a href="#nav-panel" data-icon="bars" data-iconpos="notext" id="menu">Menu</a>
-		 		<a href="#login" data-role="button" class="ui-btn-right" data-icon="back">Logout</a>
+		 		<a href="#login" data-role="button" class="ui-btn-right" data-icon="back" onclick="logout(); return false;">Logout</a>
 		 	</header>
 		 	
 		 	<section data-role="content" id="list_sectn">
@@ -95,7 +95,13 @@
 		
 			<section data-role="content">
 				<form action="#" id="create_form" name="create_form" data-ajax="false">
-				<input type="text" id="sender_id" name="sender_id" readonly="readonly" >
+					<label for="sender_id">From: </label>
+					<input type="text" id="sender_id" name="sender_id" readonly="readonly" >
+					<label for="user_id">TO:</label>
+					<select id="user_id" name="user_id" title="Select a recipient" ></select>
+					<label for="subject">Subject:</label>
+					<input type="text" id="subject" name="subject" title="Enter message subject" />
+					<label for="message_body" >Message:</label>
 					<div data-role="controlgroup" data-type="horizontal"  style="float: right" data-mini="true">
 						<select title="Priority Level" id="priority_id" name="priority_id">
 						    <option value="2">High</option>
@@ -103,13 +109,7 @@
 						    <option value="1">Low</option>
 					  	</select>
 				  		<a href="#nav-pan1" data-icon="bars" data-role="button" data-iconpos="notext" title="Default Message Template">Menu</a>
-					</div> <br /><br />
-
-					<label for="user_id">TO:</label>
-					<input type="text" id="user_id" name="user_id" title="Please enter recipient user name" />
-					<label for="subject">Subject:</label>
-					<input type="text" id="subject" name="subject" title="Enter message subject" />
-					<label for="message_body" >Message:</label>
+					</div> <br/><br/>
 					<textarea id="message_body" name="message_body"></textarea>
 					<button id="btnSend" data-theme="b" >Send</button>
 					<a href="#" data-role="button" data-theme="a" id="btnCancel">Cancel</a>
@@ -129,22 +129,22 @@
 			<div data-role="panel" data-position="right" data-display="overlay" data-theme="b" id="nav-pan1" >
 				<ul data-role="listview" >
 					<li data-icon="delete"><a href="#" data-icon-position="right" data-rel="close">Close menu</a></li>
-					<li><a href="#" data-rel="close" id="msg1" onclick="addDefMsg('where are you?'); return false;">where are you?</a></li>
-					<li><a href="#" data-rel="close" id="msg2"onclick="addDefMsg('Text me right now'); return false;" >Text me right now</a></li>
-					<li><a href="#" data-rel="close" id="msg3" onclick="addDefMsg('where are you up to?'); return false;">where are you up to?</a></li>
-					<li><a href="#" data-rel="close" id="msg4" onclick="addDefMsg('Sorry I am in a meeting now'); return false;">Sorry I am in a meeting now</a></li>
-					<li><a href="#" data-rel="close" id="msg5" onclick="addDefMsg('I am good. Do not worry.'); return false;">I am good. Do not worry.</a></li>
-					<li><a href="#" data-rel="close" id="msg6" onclick="addDefMsg('I am on my way home'); return false;">I am on my way home.</a></li>
-					<li><a href="#" data-rel="close" id="msg7" onclick="addDefMsg('Urgently! Please reply to me ASAP.'); return false;">Urgently! Please reply to me ASAP.</a></li>
-					<li><a href="#" data-rel="close" id="msg8" onclick="addDefMsg('I will get back to you.'); return false;">I will get back to you.</a></li>
-					<li><a href="#" data-rel="close" id="msg9" onclick="addDefMsg('I will will be right there.'); return false;">I will will be right there.</a></li>
-					<li><a href="#" data-rel="close" id="msg10" onclick="addDefMsg('Check this out!'); return false;">Check this out!</a></li>
-					<li><a href="#" data-rel="close" id="msg11" onclick="addDefMsg('Come right now'); return false;">Come right now</a></li>
-					<li><a data-rel="close" id="msg12" onclick="addDefMsg('Lets go there'); return false;">Lets go there</a></li>
-					<li><a data-rel="close" id="msg13" onclick="addDefMsg('See you soon'); return false;">See you soon</a></li>
-					<li><a data-rel="close" id="msg14" onclick="addDefMsg('lets party hard'); return false;">Lets party hard</a></li>
-					<li><a href="#" data-rel="close" id="msg15" onclick="addDefMsg('I am available'); return false;">I am available</a></li>
-					<li><a href="#" data-rel="close" id="msg16" onclick="addDefMsg('I am very busy'); return false;">I am very busy</a></li>			
+					<li data-icon="false"><a data-rel="close" id="msg1" onclick="addDefMsg('where are you?'); return false;">where are you?</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg2"onclick="addDefMsg('Text me right now'); return false;" >Text me right now</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg3" onclick="addDefMsg('where are you up to?'); return false;">where are you up to?</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg4" onclick="addDefMsg('Sorry I am in a meeting now'); return false;">Sorry I am in a meeting now</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg5" onclick="addDefMsg('I am good. Do not worry.'); return false;">I am good. Do not worry.</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg6" onclick="addDefMsg('I am on my way home'); return false;">I am on my way home.</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg7" onclick="addDefMsg('Urgently! Please reply to me ASAP.'); return false;">Urgently! Please reply to me ASAP.</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg8" onclick="addDefMsg('I will get back to you.'); return false;">I will get back to you.</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg9" onclick="addDefMsg('I will will be right there.'); return false;">I will will be right there.</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg10" onclick="addDefMsg('Check this out!'); return false;">Check this out!</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg11" onclick="addDefMsg('Come right now'); return false;">Come right now</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg12" onclick="addDefMsg('Lets go there'); return false;">Lets go there</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg13" onclick="addDefMsg('See you soon'); return false;">See you soon</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg14" onclick="addDefMsg('lets party hard'); return false;">Lets party hard</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg15" onclick="addDefMsg('I am available'); return false;">I am available</a></li>
+					<li data-icon="false"><a data-rel="close" id="msg16" onclick="addDefMsg('I am very busy'); return false;">I am very busy</a></li>			
 				</ul>
 			</div><!-- /panel -->
 		</div>
@@ -153,7 +153,6 @@
 			<header data-role="header" data-position="fixed">
 				<h1>Message</h1>
 				<a href="#inbox" id="btnBackToMsg" data-role="button" data-icon="back">Back</a>
-				
 				<hr></hr>
 				<div style="float: right">
 					<a href="#replym" data-icon="forward" data-inline="true" id="btnreply" onclick="toggleBox(this);" data-role="button">Reply</a>

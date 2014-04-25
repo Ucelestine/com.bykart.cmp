@@ -163,6 +163,43 @@ function get_messages(user) {
 	$.ajax(ajaxObj);
 }
 
+function get_users() {
+	
+	ajaxObj = {};
+	
+	ajaxObj = {
+		 type: "GET",
+		 url: "http://localhost:8080/com.bykart.cmp/api/v1/users",
+		 contentType: "application/json",
+		 data: "",
+		 error: function(jqXHR, textStatus, errorThrown) {
+			 alert("server fail to connect");
+			 },
+			 success: function(data) {
+				 users_data(JSON.stringify(data[0]));
+			 }
+	 };
+	
+	$.ajax(ajaxObj);
+}
+
+function users_data(data) {
+	var result = JSON.parse(data);
+	var selStr = "";
+	var len = result.length;
+		
+	for(var i = 0; i < len; i++) {
+			
+		if(result.hasOwnProperty(i)) { 
+			
+			selStr = selStr + '<option value="'+result[i].id+'">'+result[i].firstname+' '+result[i].lastname+'</option>'; 
+			
+		}
+	}
+	$('#user_id').html(selStr);
+	$('#user_id').trigger('create');
+}
+
 function get_spec_message(user, thr_Id) {
 	
 	ajaxObj = {};
@@ -200,6 +237,11 @@ function setFlagMsg(Id, f_Id) {
 		f_Id = false;
 		update_msg(user, Id, stat, f_Id);
 	}
+}
+
+function logout() {
+	//localstorage.clear();
+	window.location("http://localhost:8080/com.bykart.cmp");
 }
 
 function login(user) { 
@@ -269,6 +311,12 @@ function display_data(data) {
 			var m = moment().subtract('days', 10).calendar();
 			
 			var fId = result[i].flag_id;
+			var col = "a";
+			var icon = false;
+			if (result[i].flag_id = true) {
+				col = "b";
+				icon = "info";
+			}
 			
 		
 			if(diff < maxD)
@@ -277,18 +325,18 @@ function display_data(data) {
 						if(result[i].priority_id == 2) {
 							
 							code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="alert">'
-										+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
+										+'<a href="#mbody"><h3>'+result[i].firstname+' '+result[i].lastname+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
 										+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
 						} else {
 							
 							code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
-										+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
+										+'<a href="#mbody"><h3>'+result[i].firstname+' '+result[i].lastname+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
 										+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';	
 						}
 					} else {
 						
 						code = code + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
-									+'<a href="#mbody"><h3>'+sender+'</h3><p><strong>'+topic+'</strong></p><p>'
+									+'<a href="#mbody"><h3>'+result[i].firstname+' '+result[i].lastname+'</h3><p><strong>'+topic+'</strong></p><p>'
 									+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
 					}
 				}
@@ -298,18 +346,18 @@ function display_data(data) {
 						if(result[i].priority_id == 2) {
 							
 							str = str + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="alert">'
-										+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
+										+'<a href="#mbody"><h3>'+result[i].firstname+' '+result[i].lastname+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
 										+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
 						} else {
 							
 							str = str + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
-										+'<a href="#mbody"><h3>'+sender+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
+										+'<a href="#mbody"><h3>'+result[i].firstname+' '+result[i].lastname+'</h3><p style="color:blue"><strong>'+topic+'</strong></p><p>'
 										+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';	
 						}	
 					} else {
 						
 						str = str + '<li class="msglistview" rowid="'+row_id+'" send_id="'+sender+'" sub="'+topic+'" thrd="'+thrd_id+'" flagid="'+fId+'" Stat="'+status+'" data-icon="false">'
-									+'<a href="#mbody"><h3>'+sender+'</h3><p><strong>'+topic+'</strong></p><p>'
+									+'<a href="#mbody"><h3>'+result[i].firstname+' '+result[i].lastname+'</h3><p><strong>'+topic+'</strong></p><p>'
 									+result[i].message_body+'</p><p class="ui-li-aside"><strong>'+rdate+'</strong></p></a></li>';
 					}
 					
@@ -380,14 +428,14 @@ function process_data(data) {
 			localStorage.setItem('status', msg_status);
 				
 			if(result[0].flag_id == true ) {
-				$("#flg_id").attr('data-theme', 'b');
+				$("#flg_id").attr('data-theme', 'a');
 				
 				
 				htmlstr = htmlstr + '<p style="float:right">Flaged for follow up.</p><h3>'+topic+'</h3><p>Date: '+rdate+'</p>'
 								  +'<li data-role="fieldcontain"><label for="dspFrom">From:</label>'
 								  +'<input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+'">'
 								  +'</li><li data-role="fieldcontain"><label for="dspTo">To:</label>'
-								  +'<input type="text" readonly="readonly" name="dspTo" id="dspTo" value="'+user+'">'
+								  +'<input type="text" readonly="readonly" name="dspTo" id="dspTo" value="'+result[0].firstname+' '+result[0].lastname+'">'
 								  +'</br><p>'+result[0].message_body+'</p><hr></hr></li>';
 				
 				
@@ -399,18 +447,18 @@ function process_data(data) {
 									+'<li data-role="fieldcontain"><p style="float:right">Flaged for follow up.</p>'
 									+'<p><span style="font-weight: bold">From:</span>'+result[i].sender_id+'</p>'
 									+'<p><span style="font-weight: bold">Sent:</span>'+result[i].recieved_date+'</p>'
-									+'<p><span style="font-weight: bold">To:</span>'+result[i].user_id+'</p>'
+									+'<p><span style="font-weight: bold">To:</span>'+result[i].firstname+' '+result[i].lastname+'</p>'
 									+'<p><span style="font-weight: bold">Subject:</span>'+result[i].subject+'</p>'
 									+'</br><p>'+result[i].message_body+'</p><hr></hr></li>';
 					}
 			}
 			else if(result[0].flag_id == false) {
-				$("#flg_id").attr('data-theme', 'd');
+				$("#flg_id").attr('data-theme', 'b');
 				
 				htmlstr = htmlstr +'<h3>'+topic+'</h3><p>Date: '+rdate+'</p><li icon-diplay="false data-role="fieldcontain">'
 								  +'<label for="dspFrom">From:</label><input type="text" readonly="readonly" name="dspFrom" id="dspFrom" value="'+result[0].sender_id+'">'
 								  +'</li><li data-role="fieldcontain"><label for="dspTo">To:</label>'
-								  +'<input readonly="readonly" type="text" name="dspTo" id="dspTo" value="'+user+'">'
+								  +'<input readonly="readonly" type="text" name="dspTo" id="dspTo" value="'+result[0].firstname+' '+result[0].lastname+'">'
 								  +'</br><p>'+result[0].message_body+'</p><hr></hr></li>';
 				
 				for (var i = 1; i < result.length; i++)
@@ -420,7 +468,7 @@ function process_data(data) {
 									+' data-iconpos="notext" style="float:right" data-icon="star" id="flg_id">Flag</a>'
 									+'<li data-role="fieldcontain"><p><span style="font-weight: bold">From: </span>'+result[i].sender_id+'</p>'
 									+'<p><span style="font-weight: bold">Sent: </span>'+result[i].recieved_date+'</p>'
-									+'<p><span style="font-weight: bold">To: </span>'+result[i].user_id+'</p>'
+									+'<p><span style="font-weight: bold">To: </span>'+result[i].firstname+' '+result[i].lastname+'</p>'
 									+'<p><span style="font-weight: bold">Subject: </span>'+result[i].subject+'</p>'
 									+'</br><p>'+result[i].message_body+'</p><hr></hr></li>';
 					}
@@ -437,3 +485,4 @@ function process_data(data) {
 	$("#disp_list").trigger('create');
 	
 }
+

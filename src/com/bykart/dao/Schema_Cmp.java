@@ -189,9 +189,11 @@ public class Schema_Cmp extends CmpPostgres {
 		try {
 			//CmpPostgres.CmpPostgresConn();
 			conn = cmpMessagesConnection();
-			query = conn.prepareStatement("SELECT DISTINCT ON (m.thread_id) m.thread_id, m.id, m.user_id, m.message_body, m.priority_id, m.recieved_date, m.sender_id, m.flag_id, m.message_status_id, t.subject " +
-											" FROM messages m, thread t" +
-											" WHERE m.thread_id = t.id " +
+			query = conn.prepareStatement("SELECT DISTINCT ON (m.thread_id) m.thread_id, m.id, m.user_id, m.message_body, m.priority_id, m.recieved_date,"+
+											" m.sender_id, m.flag_id, m.message_status_id, t.subject, u.firstname, u.lastname " +
+											" FROM messages m, thread t, users u" +
+											" WHERE m.thread_id = t.id" +
+											" AND m.sender_id = u.id" +
 											" AND UPPER(m.user_id) = ? " +
 											" ORDER BY m.thread_id DESC, m.recieved_date DESC");
 			
@@ -233,11 +235,11 @@ public class Schema_Cmp extends CmpPostgres {
 		try {
 			//CmpPostgres.CmpPostgresConn();
 			conn = cmpMessagesConnection();
-			query = conn.prepareStatement("SELECT m.id, m.user_id, m.message_body, m.thread_id, m.priority_id, m.recieved_date, m.sender_id, m.flag_id, m.message_status_id, t.subject " +
-											" FROM messages m, thread t" +
-											//" WHERE UPPER(user_id) = ?" +
-											//" AND UPPER(sender_id) = ?" +
+			query = conn.prepareStatement("SELECT m.id, m.user_id, m.message_body, m.thread_id, m.priority_id, m.recieved_date,"+
+											" m.sender_id, m.flag_id, m.message_status_id, t.subject, u.firstname, u.lastname" +
+											" FROM messages m, thread t, users u" +
 											" WHERE m.thread_id = ? " +
+											" AND m.user_id = u.id" +
 											" AND m.thread_id = t.id" +
 											" ORDER BY m.recieved_date DESC");
 			
@@ -313,5 +315,40 @@ public class Schema_Cmp extends CmpPostgres {
 	}
 	return 200;
 	}
+	 
+	 public JSONArray get_users() throws Exception {
+			PreparedStatement query = null;
+			Connection conn = null;
+			
+			ToJSON converter = new ToJSON();
+			JSONArray json = new JSONArray();
+			
+			try {
+				conn = cmpMessagesConnection();
+				query = conn.prepareStatement("SELECT * FROM users");
+				
+				ResultSet rs = query.executeQuery();
+				if(rs == null) {
+					//return json;
+				} else {
+					json = converter.toJSONArray(rs);
+					query.close(); //close connection
+				}
+			}
+			catch (SQLException sqlError) {
+				sqlError.printStackTrace();
+				return json;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				return json;
+			}
+			finally {
+				if (conn != null) conn.close();		
+			}
+			return json;
+		}
  
  }
+
+
