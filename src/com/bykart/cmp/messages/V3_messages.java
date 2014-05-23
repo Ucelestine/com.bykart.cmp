@@ -1,5 +1,6 @@
 package com.bykart.cmp.messages;
 
+import javax.jws.WebService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -13,6 +14,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 import com.bykart.dao.Schema_Cmp;
 
+@WebService
 @Path("/v3/messages")
 public class V3_messages {
 	

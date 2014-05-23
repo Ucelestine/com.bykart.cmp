@@ -10,8 +10,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.bykart.dao.CmpPostgres;
-
 @Path("/v1/status")
 public class V1_status {
 	
@@ -40,8 +38,6 @@ public class V1_status {
 		Connection conn = null; 
 		
 		try {
-			
-			CmpPostgres.CmpPostgresConn();
 			conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Mobile", "postgres", "teamred");
 			query = conn.prepareStatement("SELECT * FROM messages");
 			ResultSet rs = query.executeQuery();

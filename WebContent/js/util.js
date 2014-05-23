@@ -240,8 +240,9 @@ function setFlagMsg(Id, f_Id) {
 }
 
 function logout() {
-	//localstorage.clear();
-	window.location("http://localhost:8080/com.bykart.cmp");
+	localStorage.clear();
+	window.location.href = "http://localhost:8080/com.bykart.cmp";
+	
 }
 
 function login(user) { 
@@ -266,7 +267,6 @@ function login(user) {
 					 for (var i= 0; i < result.length; i++ ) {
 						 
 					 if(result.hasOwnProperty(i)) {
-						 var us = result[0].id;
 						 
 						 if(result[0].id == null || result[0].id == "") {
 							 
@@ -302,8 +302,8 @@ function display_data(data) {
 			var user = result[i].user_id;
 			var topic = result[i].subject;
 			var thrd_id = result[i].thread_id;
-			var rdate =(new Date(result[i].recieved_date)).toJSON().slice(0,10);
-			var now = new Date().toJSON().slice(0,10);
+			var rdate =new Date(result[i].recieved_date).toUTCString();
+			var now = new Date().toJSON();
 			var diff = moment(now) - moment(rdate);
 			var maxD = 86400000;
 			var maxD2 = 172800000;
@@ -370,9 +370,11 @@ function display_data(data) {
 	 $('#yesterday_msg').html(str);
 	 $('#today_msg').listview();
 	 $('#yesterday_msg').listview();
-
 	 $('#today_msg').listview('refresh');
 	 $('#yesterday_msg').listview('refresh');
+	 $("today_msg").trigger('create');
+	 $("yesterday_msg").trigger('create');
+	 
 	 
 	 $(".msglistview").tap(function() {
 		 var Id = this.getAttribute('rowid');
@@ -419,8 +421,8 @@ function process_data(data) {
 			var row_id = result[0].id;
 			var user = result[0].user_id;
 			var topic = result[0].subject;
-			var rdate = (new Date(result[0].recieved_date)).toJSON().slice(0,10);
-			var now = new Date().toJSON().slice(0,10);
+			var rdate = (new Date(result[0].recieved_date)).toUTCString();
+			var now = new Date().toJSON();
 			
 			var msg_status = result[0].message_status_id;
 			var f_id = result[0].flag_id;
@@ -441,12 +443,12 @@ function process_data(data) {
 				
 				for (var i = 1; i < result.length; i++)
 					{
-						
+					
 						hStr = hStr +'<a href="#" onclick="setFlagMsg('+result[i].id+', '+result[i].flag_id+'); return false;" data-role="button" data-iconpos="notext" data-inline="true" '
 									+'class="ui-icon-shadow" style="float:right" data-icon="star" id="flg_id">Flag</a>'
 									+'<li data-role="fieldcontain"><p style="float:right">Flaged for follow up.</p>'
 									+'<p><span style="font-weight: bold">From:</span>'+result[i].sender_id+'</p>'
-									+'<p><span style="font-weight: bold">Sent:</span>'+result[i].recieved_date+'</p>'
+									+'<p><span style="font-weight: bold">Sent:</span>'+new Date(result[i].recieved_date).toUTCString()+'</p>'
 									+'<p><span style="font-weight: bold">To:</span>'+result[i].firstname+' '+result[i].lastname+'</p>'
 									+'<p><span style="font-weight: bold">Subject:</span>'+result[i].subject+'</p>'
 									+'</br><p>'+result[i].message_body+'</p><hr></hr></li>';
@@ -467,7 +469,7 @@ function process_data(data) {
 						hStr = hStr +'<a href="#" onclick="setFlagMsg('+result[i].id+', '+result[i].flag_id+'); return false;" data-role="button" data-inline="true" class="ui-icon-shadow"'
 									+' data-iconpos="notext" style="float:right" data-icon="star" id="flg_id">Flag</a>'
 									+'<li data-role="fieldcontain"><p><span style="font-weight: bold">From: </span>'+result[i].sender_id+'</p>'
-									+'<p><span style="font-weight: bold">Sent: </span>'+result[i].recieved_date+'</p>'
+									+'<p><span style="font-weight: bold">Sent: </span>'+new Date(result[i].recieved_date).toUTCString()+'</p>'
 									+'<p><span style="font-weight: bold">To: </span>'+result[i].firstname+' '+result[i].lastname+'</p>'
 									+'<p><span style="font-weight: bold">Subject: </span>'+result[i].subject+'</p>'
 									+'</br><p>'+result[i].message_body+'</p><hr></hr></li>';

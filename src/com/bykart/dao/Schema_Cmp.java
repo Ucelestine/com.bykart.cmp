@@ -28,7 +28,6 @@ public class Schema_Cmp extends CmpPostgres {
 		
 		try {
 			
-			//CmpPostgres.CmpPostgresConn();
 			conn = cmpMessagesConnection();
 			
 			query = conn.prepareStatement("INSERT INTO thread (subject) VALUES ( ? )" );
@@ -36,7 +35,7 @@ public class Schema_Cmp extends CmpPostgres {
 			
 			query.executeUpdate();
 			
-			query = conn.prepareStatement("SELECT id, subject FROM thread WHERE subject = ? " );
+			query = conn.prepareStatement("SELECT id, subject FROM thread WHERE subject = ?" );
 			query.setString(1, subject);
 			ResultSet res = query.executeQuery();
 			

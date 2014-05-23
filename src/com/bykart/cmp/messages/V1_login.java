@@ -1,5 +1,6 @@
 package com.bykart.cmp.messages;
 
+import javax.jws.WebService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -11,6 +12,7 @@ import org.codehaus.jettison.json.JSONArray;
 
 import com.bykart.dao.Schema_Cmp;
 
+@WebService
 @Path("/v1/login")
 public class V1_login {
 	
